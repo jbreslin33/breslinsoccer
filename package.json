@@ -1,9 +1,13 @@
 {
-  "name": "realtime-multiplayer-in-html5",
-  "author": "Sven Bergström",
-  "description": "An article and demo explaining how multiplayer games work, with a demo in HTML5 using socket.io, node.js and canvas.",
+  "name": "breslinsoccer",
+  "author": "Jim Breslin",
+  "description": "a tactical multiplayer soccer game",
   "license": "MIT",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jbreslin33/breslinsoccer"
+  },
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
