@@ -626,7 +626,7 @@ client_create_ping_timer: function() {
 
 client_create_configuration: function() 
 {
-	this.show_help = true;             //Whether or not to draw the help text
+	this.show_help = false;             //Whether or not to draw the help text
     	this.show_server_pos = false;       //Whether or not to show the server position
     	this.show_dest_pos = false;         //Whether or not to show the interpolation goal
     	this.input_seq = 0;                 //When predicting client inputs, we store the last input as a sequence number
