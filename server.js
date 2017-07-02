@@ -266,12 +266,5 @@ findGame: function(player)
 } 
 });
 
-/*
-    setInterval(function(){
-        game_server._dt = new Date().getTime() - game_server._dte;
-        game_server._dte = new Date().getTime();
-        game_server.local_time += game_server._dt/1000.0;
-    }, 4);
-*/
 module.exports = Server;
 
