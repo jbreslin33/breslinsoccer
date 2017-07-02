@@ -6,11 +6,10 @@
 */
 var ServerPlayer = new Class(
 {
-initialize: function( game_instance, player_instance ) 
+initialize: function( game_instance,player_instance) 
 {
-
             //Store the instance, if any
-        this.instance = player_instance;
+	this.instance = player_instance;
         this.game = game_instance;
 
             //Set up initial values for our state information
@@ -36,16 +35,6 @@ initialize: function( game_instance, player_instance )
             y_min: this.size.hy,
             y_max: this.game.world.height - this.size.hy
         };
-
-            //The 'host' of a game gets created with a player instance since
-            //the server already knows who they are. If the server starts a game
-            //with only a host, the other player is set up in the 'else' below
-        if(player_instance) {
-            this.pos = { x:20, y:20 };
-        } else {
-            this.pos = { x:500, y:200 };
-        }
-
     }, 
   
     draw: function(){

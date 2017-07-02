@@ -19,13 +19,22 @@ initialize: function(game_instance)
        	//We create a player set, passing them
         //the game that is running them, as well
 
-        this.players = 
+	this.playersArray = new Array();
+	
+	for (var p = 0; p < 2; p++)
 	{
-        	self : new ServerPlayer(this,this.instance.player_host),
-                other : new ServerPlayer(this,this.instance.player_client)
-        };
+		if (p == 0)
+		{
+			this.playersArray.push(new ServerPlayer(this,this.instance.player_host)); 
+		}
+		else
+		{
+			this.playersArray.push(new ServerPlayer(this,this.instance.player_client)); 
+		}
+	}
 
-        this.players.self.pos = {x:20,y:20};
+        this.playersArray[0].pos = {x:20,y:20};
+        this.playersArray[1].pos = {x:500,y:200};
 
         //The speed at which the clients move.
         this.playerspeed = 120;
@@ -233,21 +242,21 @@ update_physics:  function()
 server_update_physics: function() 
 {
 	//Handle player one
-    	this.players.self.old_state.pos = this.pos( this.players.self.pos );
-    	var new_dir = this.process_input(this.players.self);
-    	this.players.self.pos = this.v_add( this.players.self.old_state.pos, new_dir );
+    	this.playersArray[0].old_state.pos = this.pos( this.playersArray[0].pos );
+    	var new_dir = this.process_input(this.playersArray[0]);
+    	this.playersArray[0].pos = this.v_add( this.playersArray[0].old_state.pos, new_dir );
 
         //Handle player two
-    	this.players.other.old_state.pos = this.pos( this.players.other.pos );
-    	var other_new_dir = this.process_input(this.players.other);
-    	this.players.other.pos = this.v_add( this.players.other.old_state.pos, other_new_dir);
+    	this.playersArray[1].old_state.pos = this.pos( this.playersArray[1].pos );
+    	var other_new_dir = this.process_input(this.playersArray[1]);
+    	this.playersArray[1].pos = this.v_add( this.playersArray[1].old_state.pos, other_new_dir);
 
         //Keep the physics position in the world
-    	this.check_collision( this.players.self );
-    	this.check_collision( this.players.other );
+    	this.check_collision( this.playersArray[0] );
+    	this.check_collision( this.playersArray[1] );
 
-    	this.players.self.inputs = []; //we have cleared the input buffer, so remove this
-    	this.players.other.inputs = []; //we have cleared the input buffer, so remove this
+    	this.playersArray[0].inputs = []; //we have cleared the input buffer, so remove this
+    	this.playersArray[1].inputs = []; //we have cleared the input buffer, so remove this
 
 }, 
 
@@ -261,23 +270,23 @@ server_update: function()
         //Make a snapshot of the current state, for updating the clients
     	this.laststate = 
 	{
-        	hp  : this.players.self.pos,                //'host position', the game creators position
-        	cp  : this.players.other.pos,               //'client position', the person that joined, their position
-        	his : this.players.self.last_input_seq,     //'host input sequence', the last input we processed for the host
-        	cis : this.players.other.last_input_seq,    //'client input sequence', the last input we processed for the client
+        	hp  : this.playersArray[0].pos,                //'host position', the game creators position
+        	cp  : this.playersArray[1].pos,               //'client position', the person that joined, their position
+        	his : this.playersArray[0].last_input_seq,     //'host input sequence', the last input we processed for the host
+        	cis : this.playersArray[1].last_input_seq,    //'client input sequence', the last input we processed for the client
         	t   : this.server_time                      // our current local time on the server
     	};
 
         //Send the snapshot to the 'host' player
-    	if(this.players.self.instance) 
+    	if(this.playersArray[0].instance) 
 	{
-        	this.players.self.instance.emit( 'onserverupdate', this.laststate );
+        	this.playersArray[0].instance.emit( 'onserverupdate', this.laststate );
     	}
 
         //Send the snapshot to the 'client' player
-    	if(this.players.other.instance) 
+    	if(this.playersArray[1].instance) 
 	{
-        	this.players.other.instance.emit( 'onserverupdate', this.laststate );
+        	this.playersArray[1].instance.emit( 'onserverupdate', this.laststate );
     	}
 }, 
 
@@ -285,8 +294,8 @@ handle_server_input: function(client, input, input_time, input_seq)
 {
         //Fetch which client this refers to out of the two
     	var player_client =
-        (client.userid == this.players.self.instance.userid) ?
-            this.players.self : this.players.other;
+        (client.userid == this.playersArray[0].instance.userid) ?
+            this.playersArray[0] : this.playersArray[1];
 
         //Store the input on the player instance for processing in the physics loop
    	player_client.inputs.push({inputs:input, time:input_time, seq:input_seq});
