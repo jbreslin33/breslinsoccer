@@ -286,11 +286,6 @@ physics_movement_vector_from_direction: function(x,y)
     };
 },
 
-update_physics: function() 
-{
-	this.client_update_physics();
-},
-
 /*
 
  Client side functions
@@ -426,8 +421,6 @@ client_process_net_prediction_correction: function()
                 	//Now we reapply all the inputs that we have locally that
                		//the server hasn't yet confirmed. This will 'keep' our position the same,
                 	//but also confirm the server position at the same time.
-                	this.client_update_physics();
-                	this.client_update_local_position();
 
         	} // if(lastinputseq_index != -1)
 	}
@@ -524,29 +517,26 @@ client_process_net_updates: function()
 
             	//Now, if not predicting client movement , we will maintain the local player position
             	//using the same method, smoothing the players information from the past.
-        	if (!this.client_predict && !this.naive_approach) 
+                //These are the exact server positions from this tick, but only for the ghost
+            	var my_server_pos = this.players.self.host ? latest_server_data.hp : latest_server_data.cp;
+
+                //The other players positions in this timeline, behind us and in front of us
+            	var my_target_pos = this.players.self.host ? target.hp : target.cp;
+            	var my_past_pos = this.players.self.host ? previous.hp : previous.cp;
+
+                //Snap the ghost to the new server position
+            	this.ghosts.server_pos_self.pos = this.pos(my_server_pos);
+            	var local_target = this.v_lerp(my_past_pos, my_target_pos, time_point);
+
+                //Smoothly follow the destination position
+            	if(this.client_smoothing) 
 		{
-                	//These are the exact server positions from this tick, but only for the ghost
-            		var my_server_pos = this.players.self.host ? latest_server_data.hp : latest_server_data.cp;
-
-                	//The other players positions in this timeline, behind us and in front of us
-            		var my_target_pos = this.players.self.host ? target.hp : target.cp;
-            		var my_past_pos = this.players.self.host ? previous.hp : previous.cp;
-
-                	//Snap the ghost to the new server position
-            		this.ghosts.server_pos_self.pos = this.pos(my_server_pos);
-            		var local_target = this.v_lerp(my_past_pos, my_target_pos, time_point);
-
-                	//Smoothly follow the destination position
-            		if(this.client_smoothing) 
-			{
-                		this.players.self.pos = this.v_lerp( this.players.self.pos, local_target, this._pdt*this.client_smooth);
-            		} 
-			else 
-			{
-                		this.players.self.pos = this.pos( local_target );
-            		}
-        	}
+                	this.players.self.pos = this.v_lerp( this.players.self.pos, local_target, this._pdt*this.client_smooth);
+            	} 
+		else 
+		{
+                	this.players.self.pos = this.pos( local_target );
+            	}
     	} //if target && previous
 }, 
 
@@ -571,76 +561,28 @@ client_onserverupdate_recieved: function(data)
         //information to interpolate with so it misses positions, and packet loss destroys this approach
         //even more so. See 'the bouncing ball problem' on Wikipedia.
 
-        if(this.naive_approach) 
+        //Cache the data from the server,
+        //and then play the timeline
+        //back to the player with a small delay (net_offset), allowing
+        //interpolation between the points.
+        this.server_updates.push(data);
+
+        //we limit the buffer in seconds worth of updates
+        //60fps*buffer seconds = number of samples
+        if(this.server_updates.length >= ( 60*this.buffer_size )) 
 	{
-        	if(data.hp) 
-		{
-                	player_host.pos = this.pos(data.hp);
-            	}
-            	if(data.cp) 
-		{
-                	player_client.pos = this.pos(data.cp);
-            	}
-        } 
-	else 
-	{
-                //Cache the data from the server,
-                //and then play the timeline
-                //back to the player with a small delay (net_offset), allowing
-                //interpolation between the points.
-            	this.server_updates.push(data);
+               	this.server_updates.splice(0,1);
+        }
 
-                //we limit the buffer in seconds worth of updates
-                //60fps*buffer seconds = number of samples
-            	if(this.server_updates.length >= ( 60*this.buffer_size )) 
-		{
-                	this.server_updates.splice(0,1);
-            	}
+        //We can see when the last tick we know of happened.
+        //If client_time gets behind this due to latency, a snap occurs
+        //to the last tick. Unavoidable, and a reallly bad connection here.
+        //If that happens it might be best to drop the game after a period of time.
+      	this.oldest_tick = this.server_updates[0].t;
 
-                //We can see when the last tick we know of happened.
-                //If client_time gets behind this due to latency, a snap occurs
-                //to the last tick. Unavoidable, and a reallly bad connection here.
-                //If that happens it might be best to drop the game after a period of time.
-            	this.oldest_tick = this.server_updates[0].t;
-
-                //Handle the latest positions from the server
-                //and make sure to correct our local predictions, making the server have final say.
-            	this.client_process_net_prediction_correction();
-	} //non naive
-},
-
-client_update_local_position: function()
-{
-	if(this.client_predict) 
-	{
-		//Work out the time we have since we updated the state
-        	var t = (this.local_time - this.players.self.state_time) / this._pdt;
-
-        	//Then store the states for clarity,
-        	var old_state = this.players.self.old_state.pos;
-        	var current_state = this.players.self.cur_state.pos;
-
-       		//Make sure the visual position matches the states we have stored
-        	//this.players.self.pos = this.v_add( old_state, this.v_mul_scalar( this.v_sub(current_state,old_state), t )  );
-        	this.players.self.pos = current_state;
-        
-        	//We handle collision on client if predicting.
-        	this.check_collision( this.players.self );
-    	}  //if(this.client_predict)
-},
-
-client_update_physics: function() 
-{
-	//Fetch the new direction from the input buffer,
-        //and apply it to the state so we can smooth it in the visual state
-
-    	if(this.client_predict) 
-	{
-        	this.players.self.old_state.pos = this.pos( this.players.self.cur_state.pos );
-        	var nd = this.process_input(this.players.self);
-        	this.players.self.cur_state.pos = this.v_add( this.players.self.old_state.pos, nd);
-        	this.players.self.state_time = this.local_time;
-    	}
+        //Handle the latest positions from the server
+       	//and make sure to correct our local predictions, making the server have final say.
+       	this.client_process_net_prediction_correction();
 },
 
 client_update: function() 
@@ -658,29 +600,25 @@ client_update: function()
         //the server updates, smoothing out the positions from the past.
         //Note that if we don't have prediction enabled - this will also
         //update the actual local client position on screen as well.
-    	if( !this.naive_approach ) 
-	{
-        	this.client_process_net_updates();
-    	}
+        this.client_process_net_updates();
 
         //Now they should have updated, we can draw the entity
     	this.players.other.draw();
 
         //When we are doing client side prediction, we smooth out our position
         //across frames using local input states we have stored.
-    	this.client_update_local_position();
 
         //And then we finally draw
     	this.players.self.draw();
 
         //and these
-    	if(this.show_dest_pos && !this.naive_approach) 
+    	if(this.show_dest_pos) 
 	{
        		this.ghosts.pos_other.draw();
     	}
 
         //and lastly draw these
-    	if(this.show_server_pos && !this.naive_approach) 
+    	if(this.show_server_pos) 
 	{
         	this.ghosts.server_pos_self.draw();
         	this.ghosts.server_pos_other.draw();
@@ -706,7 +644,6 @@ create_physics_simulation: function()
 	{
         	this._pdt = (new Date().getTime() - this._pdte)/1000.0;
         	this._pdte = new Date().getTime();
-        	this.update_physics();
     	}.bind(this), 15);
 },
 
@@ -724,11 +661,9 @@ client_create_ping_timer: function() {
 
 client_create_configuration: function() 
 {
-	this.show_help = false;             //Whether or not to draw the help text
-    	this.naive_approach = false;        //Whether or not to use the naive approach
+	this.show_help = true;             //Whether or not to draw the help text
     	this.show_server_pos = false;       //Whether or not to show the server position
     	this.show_dest_pos = false;         //Whether or not to show the interpolation goal
-    	this.client_predict = true;         //Whether or not the client is predicting input
     	this.input_seq = 0;                 //When predicting client inputs, we store the last input as a sequence number
     	this.client_smoothing = true;       //Whether or not the client side prediction tries to smooth things out
     	this.client_smooth = 25;            //amount of smoothing to apply to client update dest
@@ -778,10 +713,8 @@ client_create_debug_gui: function()
 
     	var _othersettings = this.gui.addFolder('Methods');
 
-        _othersettings.add(this, 'naive_approach').listen();
         _othersettings.add(this, 'client_smoothing').listen();
         _othersettings.add(this, 'client_smooth').listen();
-        _othersettings.add(this, 'client_predict').listen();
 
     	var _debugsettings = this.gui.addFolder('Debug view');
         
