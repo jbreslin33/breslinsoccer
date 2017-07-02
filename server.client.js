@@ -1,3 +1,5 @@
+var UUID     = require('node-uuid');
+
 /*
     The server client class
 
@@ -7,8 +9,10 @@ var ServerClient = new Class(
 {
 initialize: function(client) 
 {
+	this.userid = UUID();
 	this.client = client; 
-	console.log('construct server.client:' + this.client.userid);
+	this.client.userid = this.userid; 
+	console.log('construct server.client:' + this.userid);
 } 
 });
     

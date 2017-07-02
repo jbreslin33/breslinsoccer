@@ -13,7 +13,7 @@ var Server = new Class(
 initialize: function()
 {
 	this.games = new Array();
-	this.serverClients = new Array();
+	this.serverClientsArray = new Array();
 	this.game_count = 0;
 
         this.verbose     = true;
@@ -37,6 +37,19 @@ log: function()
 	{
 		console.log.apply(this,arguments);
 	}
+},
+
+getServerClientByID: function(id)
+{
+	for (var i = 0; i < this.serverClientsArray.length; i++)
+	{
+
+		if (this.serverClientsArray[i].userid == id)
+		{
+			return this.serverClientsArray[i];
+		}
+	}	
+	return 0;
 },
 
 onMessage: function(client,message) 

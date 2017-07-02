@@ -5,7 +5,6 @@ var ServerClient = require('./server.client');
 var gameport = process.env.PORT || 4004;
 var io       = require('socket.io');
 var express  = require('express');
-var UUID     = require('node-uuid');
 var verbose  = false;
 var http     = require('http');
 var app      = express();
@@ -117,12 +116,7 @@ server = new Server();
 //maintain the list if players.
 sio.sockets.on('connection', function (client) 
 {
-	//Generate a new UUID, looks something like
-        //5b2ca132-64bd-4513-99da-90e838ca47d1
-        //and store this on their socket/connection
-        client.userid = UUID();
-
-	server.serverClients.push(new ServerClient(client));
+	server.serverClientsArray.push(new ServerClient(client));
 
         //tell the player they connected, giving them their id
         client.emit('onconnected', { id: client.userid } );
