@@ -12,7 +12,7 @@ var Server = new Class(
 {
 initialize: function()
 {
-	this.games = new Array();
+	this.serverGamesArray = new Array();
 	this.serverClientsArray = new Array();
 	this.game_count = 0;
 
@@ -131,7 +131,7 @@ createGame: function(player)
 	var serverGame = new ServerGame(player);
 
         //Store it in the list of game
-        this.games[ serverGame.id ] = serverGame;
+        this.serverGamesArray[ serverGame.id ] = serverGame;
 
         //Keep track
         this.game_count++;
@@ -159,7 +159,7 @@ createGame: function(player)
 //we are requesting to kill a game in progress.
 endGame: function(gameid, userid) 
 {
-	var serverGame = this.games[gameid];
+	var serverGame = this.serverGamesArray[gameid];
 
         if(serverGame) 
 	{
@@ -198,7 +198,7 @@ endGame: function(gameid, userid)
                 	}
 		}
 
-            	delete this.games[gameid];
+            	delete this.serverGamesArray[gameid];
             	this.game_count--;
 
             	this.log('game removed. there are now ' + this.game_count + ' games' );
@@ -238,15 +238,15 @@ findGame: function(player)
         	var joined_a_game = false;
 
                 //Check the list of games for an open game
-            	for(var gameid in this.games) 
+            	for(var gameid in this.serverGamesArray) 
 		{
                 	//only care about our own properties.
-                	if (!this.games.hasOwnProperty(gameid)) 
+                	if (!this.serverGamesArray.hasOwnProperty(gameid)) 
 			{
 				continue;
 			}
                     	//get the game we are checking against
-                	var game_instance = this.games[gameid];
+                	var game_instance = this.serverGamesArray[gameid];
 
                     	//If the game is a player short
                 	if (game_instance.player_count < 2) 
