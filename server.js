@@ -128,72 +128,72 @@ onInput: function(client, parts)
 createGame: function(player) 
 {
 	//Create a new game instance
-	var thegame = new ServerGame(player);
+	var serverGame = new ServerGame(player);
 
         //Store it in the list of game
-        this.games[ thegame.id ] = thegame;
+        this.games[ serverGame.id ] = serverGame;
 
         //Keep track
         this.game_count++;
 
         //Create a new game core instance, this actually runs the
         //game code like collisions and such.
-        thegame.gamecore = new ServerCore( thegame );
+        serverGame.gamecore = new ServerCore( serverGame );
         //Start updating the game loop on the server
-        thegame.gamecore.update( new Date().getTime() );
+        serverGame.gamecore.update( new Date().getTime() );
 
         //tell the player that they are now the host
         //s=server message, h=you are hosting
 
-        player.send('s.h.'+ String(thegame.gamecore.local_time).replace('.','-'));
-        console.log('server host at  ' + thegame.gamecore.local_time);
-        player.game = thegame;
+        player.send('s.h.'+ String(serverGame.gamecore.local_time).replace('.','-'));
+        console.log('server host at  ' + serverGame.gamecore.local_time);
+        player.game = serverGame;
         player.hosting = true;
         
         this.log('player ' + player.userid + ' created a game with id ' + player.game.id);
 
         //return it
-        return thegame;
+        return serverGame;
 }, 
 
 //we are requesting to kill a game in progress.
 endGame: function(gameid, userid) 
 {
-	var thegame = this.games[gameid];
+	var serverGame = this.games[gameid];
 
-        if(thegame) 
+        if(serverGame) 
 	{
         	//stop the game updates immediate
-            	thegame.gamecore.stop_update();
+            	serverGame.gamecore.stop_update();
                 
 		//if the game has two players, the one is leaving
-            	if(thegame.player_count > 1) 
+            	if(serverGame.player_count > 1) 
 		{
 
                 	//send the players the message the game is ending
-                	if(userid == thegame.player_host.userid) 
+                	if(userid == serverGame.player_host.userid) 
 			{
                         	//the host left, oh snap. Lets try join another game
-                    		if(thegame.player_client) 
+                    		if(serverGame.player_client) 
 				{
                             		//tell them the game is over
-                        		thegame.player_client.send('s.e');
+                        		serverGame.player_client.send('s.e');
                             		//now look for/create a new game.
-                        		this.findGame(thegame.player_client);
+                        		this.findGame(serverGame.player_client);
                     		}
                     
                 	} 
 			else 
 			{
                         	//the other player left, we were hosting
-                    		if(thegame.player_host) 
+                    		if(serverGame.player_host) 
 				{
                             		//tell the client the game is ended
-                        		thegame.player_host.send('s.e');
+                        		serverGame.player_host.send('s.e');
                             		//i am no longer hosting, this game is going down
-                        		thegame.player_host.hosting = false;
+                        		serverGame.player_host.hosting = false;
                             		//now look for/create a new game.
-                        		this.findGame(thegame.player_host);
+                        		this.findGame(serverGame.player_host);
                     		}
                 	}
 		}
