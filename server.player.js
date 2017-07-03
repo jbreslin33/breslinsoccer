@@ -35,6 +35,8 @@ initialize: function( game_instance,player_instance)
             y_min: this.size.hy,
             y_max: this.game.world.height - this.size.hy
         };
+}
+/*
     }, 
   
     draw: function(){
@@ -50,6 +52,7 @@ initialize: function( game_instance,player_instance)
         game.ctx.fillText(this.state, this.pos.x+10, this.pos.y + 4);
     
     } 
+*/
 });
     
 module.exports = ServerPlayer;

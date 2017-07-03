@@ -139,6 +139,7 @@ createGame: function(player)
         //Create a new game core instance, this actually runs the
         //game code like collisions and such.
         serverGame.gamecore = new ServerCore( serverGame );
+
         //Start updating the game loop on the server
         serverGame.gamecore.update( new Date().getTime() );
 
