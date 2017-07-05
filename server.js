@@ -125,10 +125,10 @@ onInput: function(client, parts)
 },
 
 //Define some required functions
-createGame: function(player) 
+createGame: function(client) 
 {
 	//Create a new game instance
-	var serverGame = new ServerGame(player);
+	var serverGame = new ServerGame(client);
 
         //Store it in the list of game
         this.serverGamesArray[ serverGame.id ] = serverGame;
@@ -146,12 +146,12 @@ createGame: function(player)
         //tell the player that they are now the host
         //s=server message, h=you are hosting
 
-        player.send('s.h.'+ String(serverGame.gamecore.local_time).replace('.','-'));
+        client.send('s.h.'+ String(serverGame.gamecore.local_time).replace('.','-'));
         console.log('server host at  ' + serverGame.gamecore.local_time);
-        player.game = serverGame;
-        player.hosting = true;
+        client.game = serverGame;
+        client.hosting = true;
         
-        this.log('player ' + player.userid + ' created a game with id ' + player.game.id);
+        this.log('player ' + client.userid + ' created a game with id ' + client.game.id);
 
         //return it
         return serverGame;
@@ -228,7 +228,7 @@ startGame: function(game)
         game.active = true;
 },
 
-findGame: function(player) 
+findGame: function(client) 
 {
 	this.log('looking for a game. We have : ' + this.game_count);
 
@@ -256,8 +256,8 @@ findGame: function(player)
                     		joined_a_game = true;
                         	//increase the player count and store
                         	//the player as the client of this game
-                    		game_instance.player_client = player;
-                    		game_instance.gamecore.playersArray[1].instance = player;
+                    		game_instance.player_client = client;
+                    		game_instance.gamecore.playersArray[1].instance = client;
                     		game_instance.player_count++;
 
                         	//start running the game on the server,
@@ -270,13 +270,13 @@ findGame: function(player)
                 //we must create one
             	if(!joined_a_game) 
 		{
-                	this.createGame(player);
+                	this.createGame(client);
             	} //if no join already
 	} 
 	else 
 	{ //if there are any games at all
        		//no games? create one!
-            	this.createGame(player);
+            	this.createGame(client);
         }
 } 
 });
