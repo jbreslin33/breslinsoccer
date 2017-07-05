@@ -116,7 +116,10 @@ server = new Server();
 //maintain the list if players.
 sio.sockets.on('connection', function (client) 
 {
-	server.serverClientsArray.push(new ServerClient(client));
+	//let the our serverClient class instance and socket.io client class instance get to know each other
+	var serverClient = new ServerClient(client);
+	server.serverClientsArray.push(serverClient);
+	client.serverClient = serverClient;
 
         //tell the player they connected, giving them their id
         client.emit('onconnected', { id: client.userid } );

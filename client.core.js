@@ -1,5 +1,3 @@
-//var ClientPlayer = require('./client.player');
-
 //The main update loop runs on requestAnimationFrame,
 //Which falls back to a setTimeout loop on the server
 //Code below is from Three.js, and sourced from links below
@@ -9,12 +7,6 @@
 
     // requestAnimationFrame polyfill by Erik Möller
     // fixes from Paul Irish and Tino Zijdel
-
-
-        //Now the main game class. This gets created on
-        //both server and client. Server creates one for
-        //each game that is hosted, and client creates one
-        //for itself to play the game.
 
 /* The ClientCore class */
 var ClientCore = new Class(
