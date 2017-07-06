@@ -10,8 +10,7 @@ var ServerClient = new Class(
 initialize: function() 
 {
 	this.userid = UUID();
-	//this.client = client; 
-	//this.client.userid = this.userid; 
+	this.client = 0; 
 	console.log('construct server.client:' + this.userid);
 },
 setClient: function(client)
