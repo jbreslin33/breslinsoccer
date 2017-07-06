@@ -115,10 +115,6 @@ server = new Server();
 //maintain the list if players.
 sio.sockets.on('connection', function (client) 
 {
-	//let the our serverClient class instance and socket.io client class instance get to know each other
-	//var serverClient = new ServerClient(client);
-	//client.serverClient = serverClient;
-
         //tell the player they connected, giving them their id
         client.emit('onconnected', { id: client.userid } );
 
@@ -134,7 +130,7 @@ sio.sockets.on('connection', function (client)
         client.on('message', function(m) 
 	{
         	server.onMessage(client, m);
-        }); //client.on message
+        }); 
 
         //When this client disconnects, we want to tell the game server
         //about that as well, so it can remove them from the game they are
@@ -151,5 +147,5 @@ sio.sockets.on('connection', function (client)
                 	//player leaving a game should destroy that game
                 	server.endGame(client.serverGame.id, client.userid);
             	} 
-        }); //client.on disconnect
-}); //sio.sockets.on connection
+        });
+}); 
