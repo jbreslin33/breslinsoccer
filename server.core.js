@@ -21,20 +21,11 @@ initialize: function(serverGame)
 
 	this.playersArray = new Array();
 	
+	//create serverPlayers
 	for (var p = 0; p < 2; p++)
 	{
-		if (p == 0)
-		{
-			var serverPlayer = new ServerPlayer(this);
-			serverPlayer.setClient(this.serverGame.player_host);
-			this.playersArray.push(serverPlayer); 
-			
-		}
-		else
-		{
-			var serverPlayer = new ServerPlayer(this);
-			this.playersArray.push(serverPlayer); 
-		}
+		var serverPlayer = new ServerPlayer(this);
+		this.playersArray.push(serverPlayer); 
 	}
 
         this.playersArray[0].pos = {x:20,y:20};
@@ -66,7 +57,13 @@ initialize: function(serverGame)
 
 assignServerClientsToServerPlayers: function()
 {
-
+	for (var p = 0; p < this.serverGame.serverClientArray.length; p++)
+	{
+		if (this.playersArray[p].client == 0)
+		{
+			this.playersArray[p].setClient(this.serverGame.serverClientArray[p].client);
+		}
+	}
 },
 
 /*
