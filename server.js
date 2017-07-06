@@ -234,22 +234,22 @@ findGame: function(client)
 				continue;
 			}
                     	//get the game we are checking against
-                	var game_instance = this.serverGamesArray[gameid];
+                	var serverGame = this.serverGamesArray[gameid];
 
                     	//If the game is a player short
-                	if (game_instance.player_count < 2) 
+                	if (serverGame.player_count < 2) 
 			{
                         	//someone wants us to join!
                     		joined_a_game = true;
                         	//increase the player count and store
                         	//the player as the client of this game
-                    		game_instance.player_client = client;
-                    		game_instance.serverCore.playersArray[1].client = client;
-                    		game_instance.player_count++;
+                    		serverGame.player_client = client;
+                    		serverGame.serverCore.playersArray[1].client = client;
+                    		serverGame.player_count++;
 
                         	//start running the game on the server,
                         	//which will tell them to respawn/start
-                    		this.startGame(game_instance);
+                    		this.startGame(serverGame);
                 	} //if less than 2 players
             	} //for all games
 
