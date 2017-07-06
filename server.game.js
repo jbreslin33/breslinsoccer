@@ -14,9 +14,10 @@ initialize: function(client)
        	client.serverClient = serverClient;
 
 	//other
-       	//var serverClient = new ServerClient();
-	//this.serverClientArray.push(serverClient);
-       	//client.serverClient = serverClient;
+        var serverClient = new ServerClient();
+        //serverClient.setClient(client);
+        this.serverClientArray.push(serverClient);
+        //client.serverClient = serverClient;
 
        	this.UUID = require('node-uuid'),
 	this.id = this.UUID()
