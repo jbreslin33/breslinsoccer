@@ -64,6 +64,10 @@ initialize: function(serverGame)
 
 },
 
+assignServerClientsToServerPlayers: function()
+{
+
+},
 
 /*
     Helper functions for the game code

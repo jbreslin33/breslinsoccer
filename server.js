@@ -127,6 +127,9 @@ createGame: function(client)
         //game code like collisions and such.
         serverGame.serverCore = new ServerCore( serverGame );
 
+	//lets connect serverClients to serverPlayers 
+	serverGame.serverCore.assignServerClientsToServerPlayers();
+
         //Start updating the game loop on the server
         serverGame.serverCore.update( new Date().getTime() );
 
