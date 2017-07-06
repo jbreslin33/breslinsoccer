@@ -6,11 +6,11 @@
 */
 var ServerPlayer = new Class(
 {
-initialize: function( game_instance,player_instance) 
+initialize: function( serverGame,player_instance) 
 {
             //Store the instance, if any
 	this.instance = player_instance;
-        this.game = game_instance;
+        this.serverGame = serverGame;
 
             //Set up initial values for our state information
         this.pos = { x:0, y:0 };
@@ -31,9 +31,9 @@ initialize: function( game_instance,player_instance)
             //The world bounds we are confined to
         this.pos_limits = {
             x_min: this.size.hx,
-            x_max: this.game.world.width - this.size.hx,
+            x_max: this.serverGame.world.width - this.size.hx,
             y_min: this.size.hy,
-            y_max: this.game.world.height - this.size.hy
+            y_max: this.serverGame.world.height - this.size.hy
         };
 }
 });
