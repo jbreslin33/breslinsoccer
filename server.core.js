@@ -278,15 +278,15 @@ server_update: function()
     	};
 
         //Send the snapshot to the 'host' player
-    	if(this.playersArray[0].instance) 
+    	if(this.playersArray[0].client) 
 	{
-        	this.playersArray[0].instance.emit( 'onserverupdate', this.laststate );
+        	this.playersArray[0].client.emit( 'onserverupdate', this.laststate );
     	}
 
         //Send the snapshot to the 'client' player
-    	if(this.playersArray[1].instance) 
+    	if(this.playersArray[1].client) 
 	{
-        	this.playersArray[1].instance.emit( 'onserverupdate', this.laststate );
+        	this.playersArray[1].client.emit( 'onserverupdate', this.laststate );
     	}
 }, 
 
@@ -294,7 +294,7 @@ handle_server_input: function(client, input, input_time, input_seq)
 {
         //Fetch which client this refers to out of the two
     	var player_client =
-        (client.userid == this.playersArray[0].instance.userid) ?
+        (client.userid == this.playersArray[0].client.userid) ?
             this.playersArray[0] : this.playersArray[1];
 
         //Store the input on the player instance for processing in the physics loop

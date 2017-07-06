@@ -6,10 +6,10 @@
 */
 var ServerPlayer = new Class(
 {
-initialize: function( serverGame,player_instance) 
+initialize: function( serverGame,client) 
 {
             //Store the instance, if any
-	this.instance = player_instance;
+	this.client = client;
         this.serverGame = serverGame;
 
             //Set up initial values for our state information

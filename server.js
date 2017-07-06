@@ -244,7 +244,7 @@ findGame: function(client)
                         	//increase the player count and store
                         	//the player as the client of this game
                     		game_instance.player_client = client;
-                    		game_instance.serverCore.playersArray[1].instance = client;
+                    		game_instance.serverCore.playersArray[1].client = client;
                     		game_instance.player_count++;
 
                         	//start running the game on the server,
