@@ -148,10 +148,10 @@ sio.sockets.on('connection', function (client)
             
                 //If the client was in a game, set by server.findGame,
                 //we can tell the game server to update that game state.
-            	if(client.game && client.game.id) 
+            	if(client.serverGame && client.serverGame.id) 
 		{
                 	//player leaving a game should destroy that game
-                	server.endGame(client.game.id, client.userid);
-            	} //client.game_id
+                	server.endGame(client.serverGame.id, client.userid);
+            	} 
         }); //client.on disconnect
 }); //sio.sockets.on connection
