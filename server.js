@@ -118,9 +118,9 @@ onInput: function(client, parts)
 
         //the client should be in a game, so
         //we can tell that game to handle the input
-        if(client && client.game && client.game.gamecore) 
+        if(client && client.game && client.game.serverCore) 
 	{
-        	client.game.gamecore.handle_server_input(client, input_commands, input_time, input_seq);
+        	client.game.serverCore.handle_server_input(client, input_commands, input_time, input_seq);
         }
 },
 
@@ -138,16 +138,16 @@ createGame: function(client)
 
         //Create a new game core instance, this actually runs the
         //game code like collisions and such.
-        serverGame.gamecore = new ServerCore( serverGame );
+        serverGame.serverCore = new ServerCore( serverGame );
 
         //Start updating the game loop on the server
-        serverGame.gamecore.update( new Date().getTime() );
+        serverGame.serverCore.update( new Date().getTime() );
 
         //tell the player that they are now the host
         //s=server message, h=you are hosting
 
-        client.send('s.h.'+ String(serverGame.gamecore.local_time).replace('.','-'));
-        console.log('server host at  ' + serverGame.gamecore.local_time);
+        client.send('s.h.'+ String(serverGame.serverCore.local_time).replace('.','-'));
+        console.log('server host at  ' + serverGame.serverCore.local_time);
         client.game = serverGame;
         client.hosting = true;
         
@@ -165,7 +165,7 @@ endGame: function(gameid, userid)
         if(serverGame) 
 	{
         	//stop the game updates immediate
-            	serverGame.gamecore.stop_update();
+            	serverGame.serverCore.stop_update();
                 
 		//if the game has two players, the one is leaving
             	if(serverGame.player_count > 1) 
@@ -221,8 +221,8 @@ startGame: function(game)
 
         //now we tell both that the game is ready to start
         //clients will reset their positions in this case.
-        game.player_client.send('s.r.'+ String(game.gamecore.local_time).replace('.','-'));
-        game.player_host.send('s.r.'+ String(game.gamecore.local_time).replace('.','-'));
+        game.player_client.send('s.r.'+ String(game.serverCore.local_time).replace('.','-'));
+        game.player_host.send('s.r.'+ String(game.serverCore.local_time).replace('.','-'));
  
        	//set this flag, so that the update loop can run it.
         game.active = true;
@@ -257,7 +257,7 @@ findGame: function(client)
                         	//increase the player count and store
                         	//the player as the client of this game
                     		game_instance.player_client = client;
-                    		game_instance.gamecore.playersArray[1].instance = client;
+                    		game_instance.serverCore.playersArray[1].instance = client;
                     		game_instance.player_count++;
 
                         	//start running the game on the server,
