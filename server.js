@@ -254,7 +254,7 @@ findGame: function(client)
 				serverGame.serverClientArray[1].setClient(client);
 				
                     		//assign client to a player	
-				serverGame.serverCore.playersArray[1].client = client;
+				serverGame.serverCore.serverPlayerArray[1].setClient(client);
 
                     		serverGame.player_count++;
 
