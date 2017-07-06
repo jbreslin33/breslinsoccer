@@ -25,11 +25,15 @@ initialize: function(serverGame)
 	{
 		if (p == 0)
 		{
-			this.playersArray.push(new ServerPlayer(this,this.serverGame.player_host)); 
+			var serverPlayer = new ServerPlayer(this);
+			serverPlayer.setClient(this.serverGame.player_host);
+			this.playersArray.push(serverPlayer); 
+			
 		}
 		else
 		{
-			this.playersArray.push(new ServerPlayer(this,this.serverGame.player_client)); 
+			var serverPlayer = new ServerPlayer(this);
+			this.playersArray.push(serverPlayer); 
 		}
 	}
 

@@ -6,11 +6,10 @@
 */
 var ServerPlayer = new Class(
 {
-initialize: function( serverGame,client) 
+initialize: function( serverGame) 
 {
-            //Store the instance, if any
-	this.client = client;
         this.serverGame = serverGame;
+	this.client = 0;
 
             //Set up initial values for our state information
         this.pos = { x:0, y:0 };
@@ -35,6 +34,10 @@ initialize: function( serverGame,client)
             y_min: this.size.hy,
             y_max: this.serverGame.world.height - this.size.hy
         };
+},
+setClient: function(client)
+{
+	this.client = client;
 }
 });
     
