@@ -6,9 +6,16 @@ var ServerGame = new Class(
 initialize: function(client)
 {
 	this.serverClientArray = new Array();
+
+	//host
        	var serverClient = new ServerClient(client);
 	this.serverClientArray.push(serverClient);
        	client.serverClient = serverClient;
+
+	//other
+       	//var serverClient = new ServerClient();
+	//this.serverClientArray.push(serverClient);
+       	//client.serverClient = serverClient;
 
        	this.UUID = require('node-uuid'),
 	this.id = this.UUID()
