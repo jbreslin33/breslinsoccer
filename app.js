@@ -1,6 +1,5 @@
 require ('mootools');
 var Server = require('./server');
-var ServerClient = require('./server.client');
     
 var gameport = process.env.PORT || 4004;
 var io       = require('socket.io');
@@ -117,9 +116,8 @@ server = new Server();
 sio.sockets.on('connection', function (client) 
 {
 	//let the our serverClient class instance and socket.io client class instance get to know each other
-	var serverClient = new ServerClient(client);
-//	server.serverClientsArray.push(serverClient);
-	client.serverClient = serverClient;
+	//var serverClient = new ServerClient(client);
+	//client.serverClient = serverClient;
 
         //tell the player they connected, giving them their id
         client.emit('onconnected', { id: client.userid } );
