@@ -19,7 +19,7 @@ initialize: function(client)
 
        	this.UUID = require('node-uuid'),
 	this.id = this.UUID()
-	this.player_host = client;
+	this.clientHost = client;
 	this.player_client = null;
 	this.player_count = 1;
 	

@@ -70,8 +70,8 @@ _onMessage: function(client,message)
         var message_type = message_parts[0];
 
         var other_client =
-            (client.serverGame.player_host.userid == client.userid) ?
-             client.serverGame.player_client : client.serverGame.player_host;
+            (client.serverGame.clientHost.userid == client.userid) ?
+             client.serverGame.player_client : client.serverGame.clientHost;
 
         if (message_type == 'i') 
 	{
@@ -162,7 +162,7 @@ endGame: function(gameid, userid)
 		{
 
                 	//send the players the message the game is ending
-                	if(userid == serverGame.player_host.userid) 
+                	if(userid == serverGame.clientHost.userid) 
 			{
                         	//the host left, oh snap. Lets try join another game
                     		if(serverGame.player_client) 
@@ -177,14 +177,14 @@ endGame: function(gameid, userid)
 			else 
 			{
                         	//the other player left, we were hosting
-                    		if(serverGame.player_host) 
+                    		if(serverGame.clientHost) 
 				{
                             		//tell the client the game is ended
-                        		serverGame.player_host.send('s.e');
+                        		serverGame.clientHost.send('s.e');
                             		//i am no longer hosting, this game is going down
-                        		serverGame.player_host.hosting = false;
+                        		serverGame.clientHost.hosting = false;
                             		//now look for/create a new game.
-                        		this.findGame(serverGame.player_host);
+                        		this.findGame(serverGame.clientHost);
                     		}
                 	}
 		}
@@ -206,13 +206,13 @@ startGame: function(serverGame)
         //the host already knows they are hosting,
         //tell the other client they are joining a game
         //s=server message, j=you are joining, send them the host id
-        serverGame.player_client.send('s.j.' + serverGame.player_host.userid);
+        serverGame.player_client.send('s.j.' + serverGame.clientHost.userid);
         serverGame.player_client.serverGame = serverGame;
 
         //now we tell both that the game is ready to start
         //clients will reset their positions in this case.
         serverGame.player_client.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
-        serverGame.player_host.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
+        serverGame.clientHost.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
  
        	//set this flag, so that the update loop can run it.
         serverGame.active = true;
