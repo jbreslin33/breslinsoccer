@@ -6,13 +6,13 @@ var Pitch = require('./pitch');
 
 var ServerCore = new Class(
 {
-initialize: function(game_instance)
+initialize: function(serverGame)
 {
 	//Store the instance, if any
-        this.instance = game_instance;
+        this.serverGame = serverGame;
 
         //Store a flag if we are the server
-        this.server = this.instance !== undefined;
+        this.server = this.serverGame !== undefined;
 
 	this.world = new World(720,480);
 
@@ -25,11 +25,11 @@ initialize: function(game_instance)
 	{
 		if (p == 0)
 		{
-			this.playersArray.push(new ServerPlayer(this,this.instance.player_host)); 
+			this.playersArray.push(new ServerPlayer(this,this.serverGame.player_host)); 
 		}
 		else
 		{
-			this.playersArray.push(new ServerPlayer(this,this.instance.player_client)); 
+			this.playersArray.push(new ServerPlayer(this,this.serverGame.player_client)); 
 		}
 	}
 
