@@ -7,13 +7,19 @@ var UUID     = require('node-uuid');
 */
 var ServerClient = new Class(
 {
-initialize: function(client) 
+initialize: function() 
 {
 	this.userid = UUID();
-	this.client = client; 
-	this.client.userid = this.userid; 
+	//this.client = client; 
+	//this.client.userid = this.userid; 
 	console.log('construct server.client:' + this.userid);
+},
+setClient: function(client)
+{
+	this.client        = client;
+	this.client.userid = this.userid; 
 } 
+
 });
     
 module.exports = ServerClient;

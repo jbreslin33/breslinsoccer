@@ -258,7 +258,7 @@ findGame: function(client)
             	if(!joined_a_game) 
 		{
                 	this.createGame(client);
-            	} //if no join already
+            	} 
 	} 
 	else 
 	{ //if there are any games at all

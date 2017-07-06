@@ -8,7 +8,8 @@ initialize: function(client)
 	this.serverClientArray = new Array();
 
 	//host
-       	var serverClient = new ServerClient(client);
+       	var serverClient = new ServerClient();
+	serverClient.setClient(client);
 	this.serverClientArray.push(serverClient);
        	client.serverClient = serverClient;
 
