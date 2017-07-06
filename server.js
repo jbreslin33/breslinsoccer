@@ -39,19 +39,6 @@ log: function()
 	}
 },
 
-getServerClientByID: function(id)
-{
-	for (var i = 0; i < this.serverClientsArray.length; i++)
-	{
-
-		if (this.serverClientsArray[i].userid == id)
-		{
-			return this.serverClientsArray[i];
-		}
-	}	
-	return 0;
-},
-
 onMessage: function(client,message) 
 {
 	if(this.fake_latency && message.split('.')[0].substr(0,1) == 'i') 
