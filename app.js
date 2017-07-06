@@ -118,7 +118,7 @@ sio.sockets.on('connection', function (client)
 {
 	//let the our serverClient class instance and socket.io client class instance get to know each other
 	var serverClient = new ServerClient(client);
-	server.serverClientsArray.push(serverClient);
+//	server.serverClientsArray.push(serverClient);
 	client.serverClient = serverClient;
 
         //tell the player they connected, giving them their id
