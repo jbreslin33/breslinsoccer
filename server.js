@@ -243,8 +243,16 @@ findGame: function(client)
                     		joined_a_game = true;
                         	//increase the player count and store
                         	//the player as the client of this game
+
+				//set the still used player_client
                     		serverGame.player_client = client;
-                    		serverGame.serverCore.playersArray[1].client = client;
+				
+				//add to serverClientArray	
+				serverGame.serverClientArray[1].setClient(client);
+				
+                    		//assign client to a player	
+				serverGame.serverCore.playersArray[1].client = client;
+
                     		serverGame.player_count++;
 
                         	//start running the game on the server,
