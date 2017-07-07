@@ -12,6 +12,7 @@ initialize: function(client)
 	serverClient.setClient(client);
 	this.serverClientArray.push(serverClient);
        	client.serverClient = serverClient;
+	this.clientHost = client;
 
 	//other
         var serverClient = new ServerClient();
@@ -19,10 +20,7 @@ initialize: function(client)
 
        	this.UUID = require('node-uuid'),
 	this.id = this.UUID()
-	this.clientHost = client;
-	this.player_client = null;
 	this.player_count = 1;
-	
 }
 });
 module.exports = ServerGame;
