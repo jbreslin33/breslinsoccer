@@ -68,11 +68,11 @@ _onMessage: function(client,message)
 
         //The first is always the type of message
         var message_type = message_parts[0];
-
+/*
         var other_client =
             (client.serverGame.clientHost.userid == client.userid) ?
              client.serverGame.player_client : client.serverGame.clientHost;
-
+*/
         if (message_type == 'i') 
 	{
         	//Input handler will forward this
@@ -85,8 +85,12 @@ _onMessage: function(client,message)
 	else if (message_type == 'c') 
 	{    
 		//Client changed their color!
-            	if(other_client)
-                other_client.send('s.c.' + message_parts[1]);
+            	//if(other_client)
+            	if(client.serverGame.clientHost != client)
+		{
+			console.log('s.c.' + message_parts[1]);
+                	client.send('s.c.' + message_parts[1]);
+		}
         } 
 	else if (message_type == 'l') 
 	{    //A client is asking for lag simulation
