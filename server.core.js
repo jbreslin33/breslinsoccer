@@ -246,23 +246,22 @@ update_physics:  function()
 //Updated at 15ms , simulates the world state
 server_update_physics: function() 
 {
-	//Handle player one
-    	this.serverPlayerArray[0].old_state.pos = this.pos( this.serverPlayerArray[0].pos );
-    	var new_dir = this.process_input(this.serverPlayerArray[0]);
-    	this.serverPlayerArray[0].pos = this.v_add( this.serverPlayerArray[0].old_state.pos, new_dir );
+	for (var i = 0; i < this.serverPlayerArray.length; i++)
+	{
+    		this.serverPlayerArray[i].old_state.pos = this.pos( this.serverPlayerArray[i].pos );
+    		var new_dir = this.process_input(this.serverPlayerArray[i]);
+    		this.serverPlayerArray[i].pos = this.v_add( this.serverPlayerArray[i].old_state.pos, new_dir );
+	}
 
-        //Handle player two
-    	this.serverPlayerArray[1].old_state.pos = this.pos( this.serverPlayerArray[1].pos );
-    	var other_new_dir = this.process_input(this.serverPlayerArray[1]);
-    	this.serverPlayerArray[1].pos = this.v_add( this.serverPlayerArray[1].old_state.pos, other_new_dir);
-
-        //Keep the physics position in the world
-    	this.check_collision( this.serverPlayerArray[0] );
-    	this.check_collision( this.serverPlayerArray[1] );
-
-    	this.serverPlayerArray[0].inputs = []; //we have cleared the input buffer, so remove this
-    	this.serverPlayerArray[1].inputs = []; //we have cleared the input buffer, so remove this
-
+	for (var i = 0; i < this.serverPlayerArray.length; i++)
+	{
+    		this.check_collision( this.serverPlayerArray[i] );
+	}
+	
+	for (var i = 0; i < this.serverPlayerArray.length; i++)
+	{
+    		this.serverPlayerArray[i].inputs = []; //we have cleared the input buffer, so remove this
+	}
 }, 
 
     	//Makes sure things run smoothly and notifies clients of changes
