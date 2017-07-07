@@ -163,14 +163,19 @@ endGame: function(gameid, userid)
                 	if(userid == serverGame.clientHost.userid) 
 			{
                         	//the host left, oh snap. Lets try join another game
-                    		if(serverGame.player_client) 
+
+				for (var c = 0; c < serverGame.serverClientArray.length; c++)
 				{
-                            		//tell them the game is over
-                        		serverGame.player_client.send('s.e');
-                            		//now look for/create a new game.
-                        		this.findGame(serverGame.player_client);
-                    		}
-                    
+					var client = serverGame.serverClientArray[c].client;
+					if (client != serverGame.clientHost)
+					{
+                            			//tell them the game is over
+                        			client.send('s.e');
+
+                           			//now look for/create a new game.
+                        			this.findGame(client);
+					}
+				}
                 	} 
 			else 
 			{
