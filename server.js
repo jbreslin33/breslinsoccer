@@ -204,6 +204,9 @@ startGame: function(serverGame)
         //the host already knows they are hosting,
         //tell the other client they are joining a game
         //s=server message, j=you are joining, send them the host id
+        
+	//now we tell both that the game is ready to start
+        //clients will reset their positions in this case.
 	for (var c = 0; c < serverGame.serverClientArray.length; c++)
 	{
 		var client = serverGame.serverClientArray[c].client;
@@ -219,15 +222,6 @@ startGame: function(serverGame)
 		}
 	}
 
-
-        //serverGame.player_client.send('s.j.' + serverGame.clientHost.userid);
-        //serverGame.player_client.serverGame = serverGame;
-
-        //now we tell both that the game is ready to start
-        //clients will reset their positions in this case.
-        //serverGame.player_client.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
-        //serverGame.clientHost.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
- 
        	//set this flag, so that the update loop can run it.
         serverGame.active = true;
 },
