@@ -265,9 +265,6 @@ findGame: function(client)
                         	//increase the player count and store
                         	//the player as the client of this game
 
-				//set the still used player_client
-                    		serverGame.player_client = client;
-				
 				//add to serverClientArray	
 				serverGame.serverClientArray[1].setClient(client);
 				
