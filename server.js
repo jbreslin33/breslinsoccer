@@ -179,16 +179,21 @@ endGame: function(gameid, userid)
                 	} 
 			else 
 			{
-                        	//the other player left, we were hosting
-                    		if(serverGame.clientHost) 
+				for (var c = 0; c < serverGame.serverClientArray.length; c++)
 				{
-                            		//tell the client the game is ended
-                        		serverGame.clientHost.send('s.e');
-                            		//i am no longer hosting, this game is going down
-                        		serverGame.clientHost.hosting = false;
-                            		//now look for/create a new game.
-                        		this.findGame(serverGame.clientHost);
-                    		}
+					var client = serverGame.serverClientArray[c].client;
+					if (client == serverGame.clientHost)
+					{
+                            			//tell the client the game is ended
+                        			client.send('s.e');
+
+                            			//i am no longer hosting, this game is going down
+                        			client.hosting = false;
+
+                            			//now look for/create a new game.
+                        			this.findGame(client);
+					}
+				}
                 	}
 		}
 
