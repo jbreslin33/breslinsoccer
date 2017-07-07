@@ -68,12 +68,8 @@ _onMessage: function(client,message)
 
         //The first is always the type of message
         var message_type = message_parts[0];
-/*
-        var other_client =
-            (client.serverGame.clientHost.userid == client.userid) ?
-             client.serverGame.player_client : client.serverGame.clientHost;
-*/
-        if (message_type == 'i') 
+        
+	if (message_type == 'i') 
 	{
         	//Input handler will forward this
             	this.onInput(client, message_parts);
@@ -85,10 +81,8 @@ _onMessage: function(client,message)
 	else if (message_type == 'c') 
 	{    
 		//Client changed their color!
-            	//if(other_client)
             	if(client.serverGame.clientHost != client)
 		{
-			console.log('s.c.' + message_parts[1]);
                 	client.send('s.c.' + message_parts[1]);
 		}
         } 
@@ -210,13 +204,29 @@ startGame: function(serverGame)
         //the host already knows they are hosting,
         //tell the other client they are joining a game
         //s=server message, j=you are joining, send them the host id
-        serverGame.player_client.send('s.j.' + serverGame.clientHost.userid);
-        serverGame.player_client.serverGame = serverGame;
+	for (var c = 0; c < serverGame.serverClientArray.length; c++)
+	{
+		var client = serverGame.serverClientArray[c].client;
+		if (client == serverGame.clientHost)
+		{
+        		client.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
+		}
+		else
+		{
+        		client.send('s.j.' + serverGame.clientHost.userid);
+        		client.serverGame = serverGame;
+        		client.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
+		}
+	}
+
+
+        //serverGame.player_client.send('s.j.' + serverGame.clientHost.userid);
+        //serverGame.player_client.serverGame = serverGame;
 
         //now we tell both that the game is ready to start
         //clients will reset their positions in this case.
-        serverGame.player_client.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
-        serverGame.clientHost.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
+        //serverGame.player_client.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
+        //serverGame.clientHost.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
  
        	//set this flag, so that the update loop can run it.
         serverGame.active = true;
