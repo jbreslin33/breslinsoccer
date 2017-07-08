@@ -281,17 +281,14 @@ server_update: function()
         	t   : this.server_time                      // our current local time on the server
     	};
 
-        //Send the snapshot to the 'host' player
-    	if(this.serverPlayerArray[0].client) 
+        //Send the snapshot of the players
+	for (var i = 0; i < this.serverPlayerArray.length; i++)
 	{
-        	this.serverPlayerArray[0].client.emit( 'onserverupdate', this.laststate );
-    	}
-
-        //Send the snapshot to the 'client' player
-    	if(this.serverPlayerArray[1].client) 
-	{
-        	this.serverPlayerArray[1].client.emit( 'onserverupdate', this.laststate );
-    	}
+		if (this.serverPlayerArray[i].client)
+		{
+        		this.serverPlayerArray[i].client.emit( 'onserverupdate', this.laststate );
+		}
+	}
 }, 
 
 handle_server_input: function(client, input, input_time, input_seq) 
