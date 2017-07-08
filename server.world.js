@@ -3,7 +3,7 @@
 
         A simple class to set the out limits of where an object can go.
 */
-var World = new Class(
+var ServerWorld = new Class(
 {
 initialize: function(width,height) 
 {
@@ -12,4 +12,4 @@ initialize: function(width,height)
     } 
 });
     
-module.exports = World;
+module.exports = ServerWorld;

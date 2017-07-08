@@ -1,6 +1,6 @@
 var ServerPlayer = require('./server.player');
-var World = require('./world');
-var Pitch = require('./pitch');
+var ServerWorld = require('./server.world');
+var ServerPitch = require('./server.pitch');
 
 /* The ServerCore class */
 
@@ -14,7 +14,7 @@ initialize: function(serverGame)
         //Store a flag if we are the server
         this.server = this.serverGame !== undefined;
 
-	this.world = new World(720,480);
+	this.serverWorld = new ServerWorld(720,480);
 
        	//We create a player set, passing them
         //the game that is running them, as well

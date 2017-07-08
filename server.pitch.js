@@ -3,7 +3,7 @@
 
         A simple class to set the dimensions and other propertie of pitch.
 */
-var Pitch = new Class(
+var ServerPitch = new Class(
 {
 initialize: function(width,height) 
 {
@@ -12,4 +12,4 @@ initialize: function(width,height)
     } 
 });
     
-module.exports = Pitch;
+module.exports = ServerPitch;

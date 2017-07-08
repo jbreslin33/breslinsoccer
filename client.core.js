@@ -13,14 +13,15 @@ var ClientCore = new Class(
 {
 initialize: function()
 {
-	//Used in collision etc.
+        //We create a player set, passing them
+        //the game that is running them, as well
+
+  	//Used in collision etc.
         this.world = {
             width : 720,
             height : 480
         };
 
-        //We create a player set, passing them
-        //the game that is running them, as well
 
 	this.players = {
                 self : new ClientPlayer(this),
