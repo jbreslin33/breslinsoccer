@@ -17,11 +17,7 @@ initialize: function()
         //the game that is running them, as well
 
   	//Used in collision etc.
-        this.world = {
-            width : 720,
-            height : 480
-        };
-
+	this.clientWorld = new ClientWorld(720,480);
 
 	this.players = {
                 self : new ClientPlayer(this),
