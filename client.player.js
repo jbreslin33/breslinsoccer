@@ -44,14 +44,14 @@ initialize: function( game_instance, player_instance )
 draw: function(){
 
        	//Set the color for this player
-        game.ctx.fillStyle = this.color;
+        serverCore.ctx.fillStyle = this.color;
 
         //Draw a rectangle for us
-        game.ctx.fillRect(this.pos.x - this.size.hx, this.pos.y - this.size.hy, this.size.x, this.size.y);
+        serverCore.ctx.fillRect(this.pos.x - this.size.hx, this.pos.y - this.size.hy, this.size.x, this.size.y);
 
         //Draw a status update
-        game.ctx.fillStyle = this.info_color;
-	game.ctx.fillText(this.state, this.pos.x+10, this.pos.y + 4);
+        serverCore.ctx.fillStyle = this.info_color;
+	serverCore.ctx.fillText(this.state, this.pos.x+10, this.pos.y + 4);
     
 } 
 });

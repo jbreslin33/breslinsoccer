@@ -12,4 +12,3 @@ initialize: function(width,height)
     } 
 });
     
-module.exports = ClientWorld;
