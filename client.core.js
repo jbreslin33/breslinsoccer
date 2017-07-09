@@ -93,7 +93,7 @@ initialize: function()
         //Set their colors from the storage or locally
         this.color = localStorage.getItem('color') || '#cc8822' ;
         localStorage.setItem('color', this.color);
-        this.players.self.color = this.color;
+        this.clientPlayerArray[0].color = this.color;
 
         //Make this only if requested
         if(String(window.location).indexOf('debug') != -1) 
