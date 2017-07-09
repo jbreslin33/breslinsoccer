@@ -24,6 +24,10 @@ initialize: function()
                 other : new ClientPlayer(this)
         };
 
+	this.clientPlayerArray = new Array();
+	this.clientPlayerArray.push(this.players.self);
+	this.clientPlayerArray.push(this.players.other);
+
         //Debugging ghosts, to help visualise things
         this.ghosts = 
 	{
