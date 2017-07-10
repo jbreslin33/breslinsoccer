@@ -19,14 +19,9 @@ initialize: function()
   	//Used in collision etc.
 	this.clientWorld = new ClientWorld(720,480);
 
-	this.players = {
-                self : new ClientPlayer(this),
-                other : new ClientPlayer(this)
-        };
-
 	this.clientPlayerArray = new Array();
-	this.clientPlayerArray.push(this.players.self);
-	this.clientPlayerArray.push(this.players.other);
+	this.clientPlayerArray.push(new ClientPlayer(this));
+	this.clientPlayerArray.push(new ClientPlayer(this));
 
         //Debugging ghosts, to help visualise things
         this.ghosts = 
