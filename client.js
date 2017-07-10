@@ -1,5 +1,5 @@
 //A window global for our game root variable.
-var serverCore = {};
+var clientCore = {};
 
 //When loading, we store references to our
 //drawing canvases, and initiate a game instance.
@@ -38,21 +38,21 @@ window.onload = function()
 
 	}());
 
-	serverCore = new ClientCore();
+	clientCore = new ClientCore();
 
 	//Fetch the viewport
-	serverCore.viewport = document.getElementById('viewport');
+	clientCore.viewport = document.getElementById('viewport');
 			
 	//Adjust their size
-	serverCore.viewport.width = serverCore.clientWorld.width;
-	serverCore.viewport.height = serverCore.clientWorld.height;
+	clientCore.viewport.width = clientCore.clientWorld.width;
+	clientCore.viewport.height = clientCore.clientWorld.height;
 
 	//Fetch the rendering contexts
-	serverCore.ctx = serverCore.viewport.getContext('2d');
+	clientCore.ctx = clientCore.viewport.getContext('2d');
 
 	//Set the draw style for the font
-	serverCore.ctx.font = '11px "Helvetica"';
+	clientCore.ctx.font = '11px "Helvetica"';
 
 	//Finally, start the loop
-	serverCore.update( new Date().getTime() );
+	clientCore.update( new Date().getTime() );
 }; 
