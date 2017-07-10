@@ -13,20 +13,25 @@ var ClientCore = new Class(
 {
 initialize: function()
 {
-        //We create a player set, passing them
-        //the game that is running them, as well
-
   	//Used in collision etc.
 	this.clientWorld = new ClientWorld(720,480);
 
 	this.clientPlayerArray = new Array();
 	this.clientPlayerArray.push(new ClientPlayer(this));
 	this.clientPlayerArray.push(new ClientPlayer(this));
+	
+	this.ghostPlayerArray = new Array();
+	this.ghostPlayerArray.push(new ClientPlayer(this));
+	this.ghostPlayerArray.push(new ClientPlayer(this));
+	
+	this.lerpPlayerArray = new Array();
+	this.lerpPlayerArray.push(new ClientPlayer(this));
+	this.lerpPlayerArray.push(new ClientPlayer(this));
 
         //Debugging ghosts, to help visualise things
         this.ghosts = 
 	{
-        	//Our ghost position on the server
+      		//Our ghost position on the server
                 server_pos_self : new ClientPlayer(this),
 
                 //The other players server position as we receive it
@@ -36,19 +41,19 @@ initialize: function()
                 pos_other : new ClientPlayer(this)
         };
 
-	this.ghosts.pos_other.state = 'dest_pos';
+	this.lerpPlayerArray[1].state = 'dest_pos';
 
-        this.ghosts.pos_other.info_color = 'rgba(255,255,255,0.1)';
+        this.lerpPlayerArray[1].info_color = 'rgba(255,255,255,0.1)';
 
-        this.ghosts.server_pos_self.info_color = 'rgba(255,255,255,0.2)';
-        this.ghosts.server_pos_other.info_color = 'rgba(255,255,255,0.2)';
+        this.ghostPlayerArray[0].info_color = 'rgba(255,255,255,0.2)';
+        this.ghostPlayerArray[1].info_color = 'rgba(255,255,255,0.2)';
 
-        this.ghosts.server_pos_self.state = 'server_pos';
-        this.ghosts.server_pos_other.state = 'server_pos';
+        this.ghostPlayerArray[0].state = 'server_pos';
+        this.ghostPlayerArray[1].state = 'server_pos';
 
-        this.ghosts.server_pos_self.pos = { x:20, y:20 };
-        this.ghosts.pos_other.pos = { x:500, y:200 };
-        this.ghosts.server_pos_other.pos = { x:500, y:200 };
+        this.ghostPlayerArray[0].pos = { x:20, y:20 };
+        this.lerpPlayerArray[1].pos = { x:500, y:200 };
+        this.ghostPlayerArray[1].pos = { x:500, y:200 };
 
         //The speed at which the clients move.
         this.playerspeed = 120;
@@ -337,7 +342,7 @@ client_process_net_prediction_correction: function()
     	var my_server_pos = this.clientPlayerArray[0].host ? latest_server_data.hp : latest_server_data.cp;
 
         //Update the debug server position block
-    	this.ghosts.server_pos_self.pos = this.pos(my_server_pos);
+    	this.ghostPlayerArray[0].pos = this.pos(my_server_pos);
 
         //here we handle our local input prediction ,
         //by correcting it with the server and reconciling its differences
@@ -456,16 +461,16 @@ client_process_net_updates: function()
 
             	//update the dest block, this is a simple lerp
             	//to the target from the previous point in the server_updates buffer
-        	this.ghosts.server_pos_other.pos = this.pos(other_server_pos);
-        	this.ghosts.pos_other.pos = this.v_lerp(other_past_pos, other_target_pos, time_point);
+        	this.ghostPlayerArray[1].pos = this.pos(other_server_pos);
+        	this.lerpPlayerArray[1].pos = this.v_lerp(other_past_pos, other_target_pos, time_point);
 
         	if(this.client_smoothing) 
 		{
-            		this.clientPlayerArray[1].pos = this.v_lerp( this.clientPlayerArray[1].pos, this.ghosts.pos_other.pos, this._pdt*this.client_smooth);
+            		this.clientPlayerArray[1].pos = this.v_lerp( this.clientPlayerArray[1].pos, this.lerpPlayerArray[1].pos, this._pdt*this.client_smooth);
         	} 
 		else 
 		{
-            		this.clientPlayerArray[1].pos = this.pos(this.ghosts.pos_other.pos);
+            		this.clientPlayerArray[1].pos = this.pos(this.lerpPlayerArray[1].pos);
         	}
 
             	//Now, if not predicting client movement , we will maintain the local player position
@@ -478,7 +483,7 @@ client_process_net_updates: function()
             	var my_past_pos = this.clientPlayerArray[0].host ? previous.hp : previous.cp;
 
                 //Snap the ghost to the new server position
-            	this.ghosts.server_pos_self.pos = this.pos(my_server_pos);
+            	this.ghostPlayerArray[0].pos = this.pos(my_server_pos);
             	var local_target = this.v_lerp(my_past_pos, my_target_pos, time_point);
 
                 //Smoothly follow the destination position
@@ -567,14 +572,14 @@ client_update: function()
         //and these
     	if(this.show_dest_pos) 
 	{
-       		this.ghosts.pos_other.draw();
+       		this.lerpPlayerArray[1].draw();
     	}
 
         //and lastly draw these
     	if(this.show_server_pos) 
 	{
-        	this.ghosts.server_pos_self.draw();
-        	this.ghosts.server_pos_other.draw();
+        	this.ghostPlayerArray[0].draw();
+        	this.ghostPlayerArray[1].draw();
     	}
 
         //Work out the fps average
@@ -717,10 +722,10 @@ client_reset_positions: function()
     	this.clientPlayerArray[0].cur_state.pos = this.pos(this.clientPlayerArray[0].pos);
 
         //Position all debug view items to their owners position
-    	this.ghosts.server_pos_self.pos = this.pos(this.clientPlayerArray[0].pos);
+    	this.ghostPlayerArray[0].pos = this.pos(this.clientPlayerArray[0].pos);
 
-    	this.ghosts.server_pos_other.pos = this.pos(this.clientPlayerArray[1].pos);
-    	this.ghosts.pos_other.pos = this.pos(this.clientPlayerArray[1].pos);
+    	this.ghostPlayerArray[1].pos = this.pos(this.clientPlayerArray[1].pos);
+    	this.lerpPlayerArray[1].pos = this.pos(this.clientPlayerArray[1].pos);
 },
 
 client_onreadygame: function(data) 
