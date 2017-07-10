@@ -6,11 +6,10 @@
 */
 var ClientPlayer = new Class(
 {
-initialize: function( game_instance, player_instance ) 
+initialize: function( clientCore) 
 {
         //Store the instance, if any
-        this.instance = player_instance;
-        this.game = game_instance;
+        this.clientCore = clientCore;
 
 	//Set up initial values for our state information
         this.pos = { x:0, y:0 };
@@ -27,18 +26,6 @@ initialize: function( game_instance, player_instance )
 
         //Our local history of inputs
         this.inputs = [];
-
-        //The 'host' of a game gets created with a player instance since
-        //the server already knows who they are. If the server starts a game
-        //with only a host, the other player is set up in the 'else' below
-        if(player_instance) 
-	{
-        	this.pos = { x:20, y:20 };
-        } 
-	else 
-	{
-            this.pos = { x:500, y:200 };
-	}
 }, 
   
 draw: function(){
@@ -52,7 +39,6 @@ draw: function(){
         //Draw a status update
         clientCore.ctx.fillStyle = this.info_color;
 	clientCore.ctx.fillText(this.state, this.pos.x+10, this.pos.y + 4);
-    
 } 
 });
     
