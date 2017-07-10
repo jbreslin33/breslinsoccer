@@ -20,6 +20,7 @@ initialize: function()
 	this.clientPlayerArray.push(new ClientPlayer(this));
 	this.clientPlayerArray.push(new ClientPlayer(this));
 	
+        //Debugging ghosts, to help visualise things
 	this.ghostPlayerArray = new Array();
 	this.ghostPlayerArray.push(new ClientPlayer(this));
 	this.ghostPlayerArray.push(new ClientPlayer(this));
@@ -27,19 +28,6 @@ initialize: function()
 	this.lerpPlayerArray = new Array();
 	this.lerpPlayerArray.push(new ClientPlayer(this));
 	this.lerpPlayerArray.push(new ClientPlayer(this));
-
-        //Debugging ghosts, to help visualise things
-        this.ghosts = 
-	{
-      		//Our ghost position on the server
-                server_pos_self : new ClientPlayer(this),
-
-                //The other players server position as we receive it
-                server_pos_other : new ClientPlayer(this),
-
-               	//The other players ghost destination position (the lerp)
-                pos_other : new ClientPlayer(this)
-        };
 
 	this.lerpPlayerArray[1].state = 'dest_pos';
 
