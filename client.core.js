@@ -315,63 +315,6 @@ client_handle_input: function()
     	}
 },
 
-client_process_net_prediction_correction: function() 
-{
-	//No updates...
-    	if(!this.server_updates.length) 
-	{
-		return;
-	}
-
-        //The most recent server update
-    	var latest_server_data = this.server_updates[this.server_updates.length-1];
-
-        //Our latest server position
-    	var my_server_pos = this.clientPlayerArray[0].host ? latest_server_data.hp : latest_server_data.cp;
-
-        //Update the debug server position block
-    	this.ghostPlayerArray[0].pos = this.pos(my_server_pos);
-
-        //here we handle our local input prediction ,
-        //by correcting it with the server and reconciling its differences
-
-        var my_last_input_on_server = this.clientPlayerArray[0].host ? latest_server_data.his : latest_server_data.cis;
-        if(my_last_input_on_server) 
-	{
-        	//The last input sequence index in my local input list
-            	var lastinputseq_index = -1;
-                //Find this input in the list, and store the index
-            	for(var i = 0; i < this.clientPlayerArray[0].inputs.length; ++i) 
-		{
-                	if(this.clientPlayerArray[0].inputs[i].seq == my_last_input_on_server) 
-			{
-                    		lastinputseq_index = i;
-                    		break;
-                	}
-            	}
-
-        	//Now we can crop the list of any updates we have already processed
-        	if(lastinputseq_index != -1) 
-		{
-        		//so we have now gotten an acknowledgement from the server that our inputs here have been accepted
-                	//and that we can predict from this known position instead
-
-                	//remove the rest of the inputs we have confirmed on the server
-                	var number_to_clear = Math.abs(lastinputseq_index - (-1));
-                	this.clientPlayerArray[0].inputs.splice(0, number_to_clear);
-
-                	//The player is now located at the new server position, authoritive server
-                	this.clientPlayerArray[0].cur_state.pos = this.pos(my_server_pos);
-                	this.clientPlayerArray[0].last_input_seq = lastinputseq_index;
-
-                	//Now we reapply all the inputs that we have locally that
-               		//the server hasn't yet confirmed. This will 'keep' our position the same,
-                	//but also confirm the server position at the same time.
-
-        	} // if(lastinputseq_index != -1)
-	}
-},
-
 client_process_net_updates: function() 
 {
 
@@ -525,10 +468,6 @@ client_onserverupdate_recieved: function(data)
         //to the last tick. Unavoidable, and a reallly bad connection here.
         //If that happens it might be best to drop the game after a period of time.
       	this.oldest_tick = this.server_updates[0].t;
-
-        //Handle the latest positions from the server
-       	//and make sure to correct our local predictions, making the server have final say.
-       	this.client_process_net_prediction_correction();
 },
 
 client_update: function() 
@@ -711,8 +650,8 @@ client_reset_positions: function()
 
         //Position all debug view items to their owners position
     	this.ghostPlayerArray[0].pos = this.pos(this.clientPlayerArray[0].pos);
-
     	this.ghostPlayerArray[1].pos = this.pos(this.clientPlayerArray[1].pos);
+
     	this.lerpPlayerArray[1].pos = this.pos(this.clientPlayerArray[1].pos);
 },
 
