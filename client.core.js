@@ -400,15 +400,12 @@ client_process_net_updates: function()
             	//Now, if not predicting client movement , we will maintain the local player position
             	//using the same method, smoothing the players information from the past.
                 //These are the exact server positions from this tick, but only for the ghost
-            	var my_server_pos = latest_server_data[0];
 
                 //The other players positions in this timeline, behind us and in front of us
-            	var my_target_pos = target[0];
-            	var my_past_pos = previous[0];
 
                 //Snap the ghost to the new server position
-            	this.ghostPlayerArray[0].pos = this.pos(my_server_pos);
-            	var local_target = this.v_lerp(my_past_pos, my_target_pos, time_point);
+            	this.ghostPlayerArray[0].pos = this.pos(latest_server_data[0]);
+            	var local_target = this.v_lerp(previous[0], target[0], time_point);
 
                 this.clientPlayerArray[0].pos = this.v_lerp( this.clientPlayerArray[0].pos, local_target, this._pdt*this.client_smooth);
     	} //if target && previous
