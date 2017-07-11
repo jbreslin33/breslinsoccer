@@ -388,11 +388,11 @@ client_process_net_updates: function()
 
 		//111111111111111
             	//These are the exact server positions from this tick, but only for the ghost
-        	var other_server_pos = this.clientPlayerArray[0].host ? latest_server_data[1] : latest_server_data[0];
+        	var other_server_pos = latest_server_data[1];
 
             	//The other players positions in this timeline, behind us and in front of us
-        	var other_target_pos = this.clientPlayerArray[0].host ? target[1] : target[0];
-        	var other_past_pos = this.clientPlayerArray[0].host ? previous[1] : previous[0];
+        	var other_target_pos = target[1];
+        	var other_past_pos = previous[1];
 
             	//update the dest block, this is a simple lerp
             	//to the target from the previous point in the server_updates buffer
@@ -406,11 +406,11 @@ client_process_net_updates: function()
             	//Now, if not predicting client movement , we will maintain the local player position
             	//using the same method, smoothing the players information from the past.
                 //These are the exact server positions from this tick, but only for the ghost
-            	var my_server_pos = this.clientPlayerArray[0].host ? latest_server_data[0] : latest_server_data[1];
+            	var my_server_pos = latest_server_data[0];
 
                 //The other players positions in this timeline, behind us and in front of us
-            	var my_target_pos = this.clientPlayerArray[0].host ? target[0] : target[1]
-            	var my_past_pos = this.clientPlayerArray[0].host ? previous[0] : previous[1];
+            	var my_target_pos = target[0];
+            	var my_past_pos = previous[0];
 
                 //Snap the ghost to the new server position
             	this.ghostPlayerArray[0].pos = this.pos(my_server_pos);
