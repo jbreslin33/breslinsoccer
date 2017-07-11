@@ -386,6 +386,7 @@ client_process_net_updates: function()
             	//The most recent server update
         	var latest_server_data = this.server_updates[ this.server_updates.length-1 ];
 
+		//111111111111111
             	//These are the exact server positions from this tick, but only for the ghost
         	var other_server_pos = this.clientPlayerArray[0].host ? latest_server_data[1] : latest_server_data[0];
 
@@ -398,15 +399,10 @@ client_process_net_updates: function()
         	this.ghostPlayerArray[1].pos = this.pos(other_server_pos);
         	this.lerpPlayerArray[1].pos = this.v_lerp(other_past_pos, other_target_pos, time_point);
 
-        	if(this.client_smoothing) 
-		{
-            		this.clientPlayerArray[1].pos = this.v_lerp( this.clientPlayerArray[1].pos, this.lerpPlayerArray[1].pos, this._pdt*this.client_smooth);
-        	} 
-		else 
-		{
-            		this.clientPlayerArray[1].pos = this.pos(this.lerpPlayerArray[1].pos);
-        	}
+		//client smoothing
+            	this.clientPlayerArray[1].pos = this.v_lerp( this.clientPlayerArray[1].pos, this.lerpPlayerArray[1].pos, this._pdt*this.client_smooth);
 
+		//0000000000000000
             	//Now, if not predicting client movement , we will maintain the local player position
             	//using the same method, smoothing the players information from the past.
                 //These are the exact server positions from this tick, but only for the ghost
@@ -420,41 +416,19 @@ client_process_net_updates: function()
             	this.ghostPlayerArray[0].pos = this.pos(my_server_pos);
             	var local_target = this.v_lerp(my_past_pos, my_target_pos, time_point);
 
-                //Smoothly follow the destination position
-            	if(this.client_smoothing) 
-		{
-                	this.clientPlayerArray[0].pos = this.v_lerp( this.clientPlayerArray[0].pos, local_target, this._pdt*this.client_smooth);
-            	} 
-		else 
-		{
-                	this.clientPlayerArray[0].pos = this.pos( local_target );
-            	}
+                this.clientPlayerArray[0].pos = this.v_lerp( this.clientPlayerArray[0].pos, local_target, this._pdt*this.client_smooth);
     	} //if target && previous
 }, 
 
 client_onserverupdate_recieved: function(data)
 {
-	//Lets clarify the information we have locally. One of the players is 'hosting' and
-        //the other is a joined in client, so we name these host and client for making sure
-        //the positions we get from the server are mapped onto the correct local sprites
-        //var player_host = this.clientPlayerArray[0].host ?  this.clientPlayerArray[0] : this.clientPlayerArray[1];
-        //var player_client = this.clientPlayerArray[0].host ?  this.clientPlayerArray[1] : this.clientPlayerArray[0];
-        //var this_player = this.clientPlayerArray[0];
-        
         //Store the server time (this is offset by the latency in the network, by the time we get it)
         //this.server_time = data.t;
 	var e = this.clientPlayerArray.length * 2;
         this.server_time = data[e];
-	//console.log('server_time:' + this.server_time);
        
 	 //Update our local offset time from the last server update
         this.client_time = this.server_time - (this.net_offset/1000);
-
-       	//One approach is to set the position directly as the server tells you.
-        //This is a common mistake and causes somewhat playable results on a local LAN, for example,
-        //but causes terrible lag when any ping/latency is introduced. The player can not deduce any
-        //information to interpolate with so it misses positions, and packet loss destroys this approach
-        //even more so. See 'the bouncing ball problem' on Wikipedia.
 
         //Cache the data from the server,
         //and then play the timeline
