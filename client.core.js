@@ -437,9 +437,9 @@ client_onserverupdate_recieved: function(data)
 	//Lets clarify the information we have locally. One of the players is 'hosting' and
         //the other is a joined in client, so we name these host and client for making sure
         //the positions we get from the server are mapped onto the correct local sprites
-        var player_host = this.clientPlayerArray[0].host ?  this.clientPlayerArray[0] : this.clientPlayerArray[1];
-        var player_client = this.clientPlayerArray[0].host ?  this.clientPlayerArray[1] : this.clientPlayerArray[0];
-        var this_player = this.clientPlayerArray[0];
+        //var player_host = this.clientPlayerArray[0].host ?  this.clientPlayerArray[0] : this.clientPlayerArray[1];
+        //var player_client = this.clientPlayerArray[0].host ?  this.clientPlayerArray[1] : this.clientPlayerArray[0];
+        //var this_player = this.clientPlayerArray[0];
         
         //Store the server time (this is offset by the latency in the network, by the time we get it)
         //this.server_time = data.t;
