@@ -51,7 +51,7 @@ initialize: function(serverGame)
         this.create_timer();
 
         this.server_time = 0;
-        this.laststate = {};
+	this.lastStateArray = new Array();
 
 },
 
@@ -272,21 +272,19 @@ server_update: function()
     	this.server_time = this.local_time;
 
         //Make a snapshot of the current state, for updating the clients
-    	this.laststate = 
-	{
-        	hp  : this.serverPlayerArray[0].pos,                //'host position', the game creators position
-        	cp  : this.serverPlayerArray[1].pos,               //'client position', the person that joined, their position
-        	his : this.serverPlayerArray[0].last_input_seq,     //'host input sequence', the last input we processed for the host
-        	cis : this.serverPlayerArray[1].last_input_seq,    //'client input sequence', the last input we processed for the client
-        	t   : this.server_time                      // our current local time on the server
-    	};
+	this.lastStateArray = [];
+	this.lastStateArray.push(this.serverPlayerArray[0].pos);
+	this.lastStateArray.push(this.serverPlayerArray[1].pos);
+	this.lastStateArray.push(this.serverPlayerArray[0].last_input_seq);
+	this.lastStateArray.push(this.serverPlayerArray[1].last_input_seq);
+	this.lastStateArray.push(this.server_time);
 
         //Send the snapshot of the players
 	for (var i = 0; i < this.serverPlayerArray.length; i++)
 	{
 		if (this.serverPlayerArray[i].client)
 		{
-        		this.serverPlayerArray[i].client.emit( 'onserverupdate', this.laststate );
+        		this.serverPlayerArray[i].client.emit( 'onserverupdate', this.lastStateArray );
 		}
 	}
 }, 

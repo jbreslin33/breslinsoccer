@@ -345,7 +345,7 @@ client_process_net_updates: function()
         	var next_point = this.server_updates[i+1];
 
             	//Compare our point in time with the server times we have
-        	if(current_time > point.t && current_time < next_point.t) 
+        	if(current_time > point[4] && current_time < next_point[4]) 
 		{
             		target = next_point;
             		previous = point;
@@ -368,9 +368,9 @@ client_process_net_updates: function()
 
      	if(target && previous) 
 	{
-        	this.target_time = target.t;
+        	this.target_time = target[4];
         	var difference = this.target_time - current_time;
-        	var max_difference = (target.t - previous.t).fixed(3);
+        	var max_difference = (target[4] - previous[4]).fixed(3);
         	var time_point = (difference/max_difference).fixed(3);
 
             	//Because we use the same target and previous in extreme cases
@@ -384,11 +384,11 @@ client_process_net_updates: function()
         	var latest_server_data = this.server_updates[ this.server_updates.length-1 ];
 
             	//These are the exact server positions from this tick, but only for the ghost
-        	var other_server_pos = this.clientPlayerArray[0].host ? latest_server_data.cp : latest_server_data.hp;
+        	var other_server_pos = this.clientPlayerArray[0].host ? latest_server_data[1] : latest_server_data[0];
 
             	//The other players positions in this timeline, behind us and in front of us
-        	var other_target_pos = this.clientPlayerArray[0].host ? target.cp : target.hp;
-        	var other_past_pos = this.clientPlayerArray[0].host ? previous.cp : previous.hp;
+        	var other_target_pos = this.clientPlayerArray[0].host ? target[1] : target[0];
+        	var other_past_pos = this.clientPlayerArray[0].host ? previous[1] : previous[0];
 
             	//update the dest block, this is a simple lerp
             	//to the target from the previous point in the server_updates buffer
@@ -407,11 +407,11 @@ client_process_net_updates: function()
             	//Now, if not predicting client movement , we will maintain the local player position
             	//using the same method, smoothing the players information from the past.
                 //These are the exact server positions from this tick, but only for the ghost
-            	var my_server_pos = this.clientPlayerArray[0].host ? latest_server_data.hp : latest_server_data.cp;
+            	var my_server_pos = this.clientPlayerArray[0].host ? latest_server_data[0] : latest_server_data[1];
 
                 //The other players positions in this timeline, behind us and in front of us
-            	var my_target_pos = this.clientPlayerArray[0].host ? target.hp : target.cp;
-            	var my_past_pos = this.clientPlayerArray[0].host ? previous.hp : previous.cp;
+            	var my_target_pos = this.clientPlayerArray[0].host ? target[0] : target[1]
+            	var my_past_pos = this.clientPlayerArray[0].host ? previous[0] : previous[1];
 
                 //Snap the ghost to the new server position
             	this.ghostPlayerArray[0].pos = this.pos(my_server_pos);
@@ -439,7 +439,10 @@ client_onserverupdate_recieved: function(data)
         var this_player = this.clientPlayerArray[0];
         
         //Store the server time (this is offset by the latency in the network, by the time we get it)
-        this.server_time = data.t;
+        //this.server_time = data.t;
+	var e = this.clientPlayerArray.length * 2;
+        this.server_time = data[e];
+	//console.log('server_time:' + this.server_time);
        
 	 //Update our local offset time from the last server update
         this.client_time = this.server_time - (this.net_offset/1000);
@@ -467,7 +470,7 @@ client_onserverupdate_recieved: function(data)
         //If client_time gets behind this due to latency, a snap occurs
         //to the last tick. Unavoidable, and a reallly bad connection here.
         //If that happens it might be best to drop the game after a period of time.
-      	this.oldest_tick = this.server_updates[0].t;
+      	this.oldest_tick = this.server_updates[0][4];
 },
 
 client_update: function() 
