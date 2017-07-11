@@ -387,17 +387,11 @@ client_process_net_updates: function()
         	var latest_server_data = this.server_updates[ this.server_updates.length-1 ];
 
 		//111111111111111
-            	//These are the exact server positions from this tick, but only for the ghost
-        	var other_server_pos = latest_server_data[1];
-
-            	//The other players positions in this timeline, behind us and in front of us
-        	var other_target_pos = target[1];
-        	var other_past_pos = previous[1];
 
             	//update the dest block, this is a simple lerp
             	//to the target from the previous point in the server_updates buffer
-        	this.ghostPlayerArray[1].pos = this.pos(other_server_pos);
-        	this.lerpPlayerArray[1].pos = this.v_lerp(other_past_pos, other_target_pos, time_point);
+        	this.ghostPlayerArray[1].pos = this.pos(latest_server_data[1]);
+        	this.lerpPlayerArray[1].pos = this.v_lerp(previous[1], target[1], time_point);
 
 		//client smoothing
             	this.clientPlayerArray[1].pos = this.v_lerp( this.clientPlayerArray[1].pos, this.lerpPlayerArray[1].pos, this._pdt*this.client_smooth);
