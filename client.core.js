@@ -339,13 +339,16 @@ client_process_net_updates: function()
         //are at the end (list.length-1 for example). This will be expensive
         //only when our time is not found on the timeline, since it will run all
         //samples. Usually this iterates very little before breaking out with a target.
+
+	var e = this.clientPlayerArray.length * 2;
+	
     	for(var i = 0; i < count; ++i) 
 	{
         	var point = this.server_updates[i];
         	var next_point = this.server_updates[i+1];
 
             	//Compare our point in time with the server times we have
-        	if(current_time > point[4] && current_time < next_point[4]) 
+        	if(current_time > point[e] && current_time < next_point[e]) 
 		{
             		target = next_point;
             		previous = point;
@@ -368,9 +371,9 @@ client_process_net_updates: function()
 
      	if(target && previous) 
 	{
-        	this.target_time = target[4];
+        	this.target_time = target[e];
         	var difference = this.target_time - current_time;
-        	var max_difference = (target[4] - previous[4]).fixed(3);
+        	var max_difference = (target[e] - previous[e]).fixed(3);
         	var time_point = (difference/max_difference).fixed(3);
 
             	//Because we use the same target and previous in extreme cases
@@ -470,7 +473,8 @@ client_onserverupdate_recieved: function(data)
         //If client_time gets behind this due to latency, a snap occurs
         //to the last tick. Unavoidable, and a reallly bad connection here.
         //If that happens it might be best to drop the game after a period of time.
-      	this.oldest_tick = this.server_updates[0][4];
+	var e = this.clientPlayerArray.length * 2;
+      	this.oldest_tick = this.server_updates[0][e];
 },
 
 client_update: function() 
