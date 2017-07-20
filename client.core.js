@@ -40,8 +40,10 @@ initialize: function()
         this.ghostPlayerArray[1].state = 'server_pos';
 
         this.ghostPlayerArray[0].pos = { x:20, y:20 };
-        this.lerpPlayerArray[1].pos = { x:500, y:200 };
         this.ghostPlayerArray[1].pos = { x:500, y:200 };
+
+        this.lerpPlayerArray[0].pos = { x:20, y:20 };
+        this.lerpPlayerArray[1].pos = { x:500, y:200 };
 
         //The speed at which the clients move.
         this.playerspeed = 120;
@@ -387,7 +389,6 @@ client_process_net_updates: function()
         	var latest_server_data = this.server_updates[ this.server_updates.length-1 ];
 
 		//111111111111111
-
             	//update the dest block, this is a simple lerp
             	//to the target from the previous point in the server_updates buffer
         	this.ghostPlayerArray[1].pos = this.pos(latest_server_data[1]);
@@ -405,9 +406,10 @@ client_process_net_updates: function()
 
                 //Snap the ghost to the new server position
             	this.ghostPlayerArray[0].pos = this.pos(latest_server_data[0]);
-            	var local_target = this.v_lerp(previous[0], target[0], time_point);
+            	this.lerpPlayerArray[0].pos = this.v_lerp(previous[0], target[0], time_point);
 
-                this.clientPlayerArray[0].pos = this.v_lerp( this.clientPlayerArray[0].pos, local_target, this._pdt*this.client_smooth);
+                this.clientPlayerArray[0].pos = this.v_lerp( this.clientPlayerArray[0].pos, this.lerpPlayerArray[0].pos, this._pdt*this.client_smooth);
+
     	} //if target && previous
 }, 
 
