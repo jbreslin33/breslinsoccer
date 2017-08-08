@@ -1,18 +1,40 @@
 var ServerPlayer = require('./server.player');
 var ServerWorld = require('./server.world');
 var ServerPitch = require('./server.pitch');
+var ServerClient = require('./server.client');
 
 /* The ServerCore class */
 
 var ServerCore = new Class(
 {
-initialize: function(serverGame)
+initialize: function(server,client)
 {
-	//Store the instance, if any
-        this.serverGame = serverGame;
+/*****
+serverGame old stuff
+****/
+        this.serverClientArray = new Array();
+
+        //host
+        var serverClient = new ServerClient();
+        serverClient.setClient(client);
+        this.serverClientArray.push(serverClient);
+        client.serverClient = serverClient;
+        this.clientHost = client;
+
+        //other
+        var serverClient = new ServerClient();
+        this.serverClientArray.push(serverClient);
+
+        this.UUID = require('node-uuid'),
+        this.id = this.UUID()
+        this.player_count = 1;
+
+/********
+end old stuff
+**********/
 
         //Store a flag if we are the server
-        this.server = this.serverGame !== undefined;
+        //this.server = this.serverGame !== undefined;
 
 	this.serverWorld = new ServerWorld(720,480);
 
@@ -57,11 +79,11 @@ initialize: function(serverGame)
 
 assignServerClientsToServerPlayers: function()
 {
-	for (var p = 0; p < this.serverGame.serverClientArray.length; p++)
+	for (var p = 0; p < this.serverClientArray.length; p++)
 	{
 		if (this.serverPlayerArray[p].client == 0)
 		{
-			this.serverPlayerArray[p].setClient(this.serverGame.serverClientArray[p].client);
+			this.serverPlayerArray[p].setClient(this.serverClientArray[p].client);
 		}
 	}
 },
@@ -223,15 +245,10 @@ game_core.prototype.physics_movement_vector_from_direction = function(x,y) {
 
 update_physics:  function() 
 {
-    	if(this.server) 
-	{
+    	//if(this.server) 
+	//{
         	this.server_update_physics();
-    	} 
-	else 
-	{
-        	this.client_update_physics();
-    	}
-
+    	//} 
 }, 
 
 /*

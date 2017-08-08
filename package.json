@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "body-parser": "^1.17.2",
-    "express": "^4.15.3",
+    "express": "^4.15.4",
     "express-form": "^0.12.6",
     "formidable": "^1.1.1",
     "node-uuid": "1.3.3",

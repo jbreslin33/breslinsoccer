@@ -5,14 +5,13 @@
     
     MIT Licensed.
 */
-var ServerGame = require('./server.game');
 var ServerCore = require('./server.core');
 
 var Server = new Class(
 {
 initialize: function()
 {
-	this.serverGamesArray = new Array();
+	this.serverCoreArray = new Array();
 	this.serverClientsArray = new Array();
 	this.game_count = 0;
 
@@ -81,7 +80,7 @@ _onMessage: function(client,message)
 	else if (message_type == 'c') 
 	{    
 		//Client changed their color!
-            	if(client.serverGame.clientHost != client)
+            	if(client.serverCore.clientHost != client)
 		{
                 	client.send('s.c.' + message_parts[1]);
 		}
@@ -103,71 +102,70 @@ onInput: function(client, parts)
 
         //the client should be in a game, so
         //we can tell that game to handle the input
-        if(client && client.serverGame && client.serverGame.serverCore) 
+        if(client && client.serverCore && client.serverCore) 
 	{
-        	client.serverGame.serverCore.handle_server_input(client, input_commands, input_time, input_seq);
+        	client.serverCore.handle_server_input(client, input_commands, input_time, input_seq);
         }
 },
 
 //Define some required functions
 createGame: function(client) 
 {
-	//Create a new game instance
-	var serverGame = new ServerGame(client);
+        //Create a new game core instance, this actually runs the
+        //game code like collisions and such.
+        var serverCore = new ServerCore(this,client);
 
+	//Create a new game instance
         //Store it in the list of game
-        this.serverGamesArray[ serverGame.id ] = serverGame;
+        this.serverCoreArray[ serverCore.id ] = serverCore;
 
         //Keep track
         this.game_count++;
 
-        //Create a new game core instance, this actually runs the
-        //game code like collisions and such.
-        serverGame.serverCore = new ServerCore( serverGame );
 
 	//lets connect serverClients to serverPlayers 
-	serverGame.serverCore.assignServerClientsToServerPlayers();
+	serverCore.assignServerClientsToServerPlayers();
 
         //Start updating the game loop on the server
-        serverGame.serverCore.update( new Date().getTime() );
+        serverCore.update( new Date().getTime() );
 
         //tell the player that they are now the host
         //s=server message, h=you are hosting
 
-        client.send('s.h.'+ String(serverGame.serverCore.local_time).replace('.','-'));
-        console.log('server host at  ' + serverGame.serverCore.local_time);
-        client.serverGame = serverGame;
+        client.send('s.h.'+ String(serverCore.local_time).replace('.','-'));
+        console.log('server host at  ' + serverCore.local_time);
+        client.serverCore = serverCore;
         client.hosting = true;
         
-        this.log('player ' + client.userid + ' created a game with id ' + client.serverGame.id);
+        this.log('player ' + client.userid + ' created a game with id ' + client.serverCore.id);
 
         //return it
-        return serverGame;
+        return serverCore;
 }, 
 
 //we are requesting to kill a game in progress.
 endGame: function(gameid, userid) 
 {
-	var serverGame = this.serverGamesArray[gameid];
+	var serverCore = this.serverCoreArray[gameid];
 
-        if(serverGame) 
+        if(serverCore) 
 	{
         	//stop the game updates immediate
-            	serverGame.serverCore.stop_update();
+            	serverCore.stop_update();
                 
 		//if the game has two players, the one is leaving
-            	if(serverGame.player_count > 1) 
+            	if(serverCore.player_count > 1) 
 		{
 
                 	//send the players the message the game is ending
-                	if(userid == serverGame.clientHost.userid) 
+                	if(userid == serverCore.clientHost.userid) 
 			{
                         	//the host left, oh snap. Lets try join another game
 
-				for (var c = 0; c < serverGame.serverClientArray.length; c++)
+				for (var c = 0; c < serverCore.serverClientArray.length; c++)
 				{
-					var client = serverGame.serverClientArray[c].client;
-					if (client != serverGame.clientHost)
+					var client = serverCore.serverClientArray[c].client;
+					if (client != serverCore.clientHost)
 					{
                             			//tell them the game is over
                         			client.send('s.e');
@@ -179,10 +177,10 @@ endGame: function(gameid, userid)
                 	} 
 			else 
 			{
-				for (var c = 0; c < serverGame.serverClientArray.length; c++)
+				for (var c = 0; c < serverCore.serverClientArray.length; c++)
 				{
-					var client = serverGame.serverClientArray[c].client;
-					if (client == serverGame.clientHost)
+					var client = serverCore.serverClientArray[c].client;
+					if (client == serverCore.clientHost)
 					{
                             			//tell the client the game is ended
                         			client.send('s.e');
@@ -197,7 +195,7 @@ endGame: function(gameid, userid)
                 	}
 		}
 
-            	delete this.serverGamesArray[gameid];
+            	delete this.serverCoreArray[gameid];
             	this.game_count--;
 
             	this.log('game removed. there are now ' + this.game_count + ' games' );
@@ -208,7 +206,7 @@ endGame: function(gameid, userid)
         }
 },
 
-startGame: function(serverGame) 
+startGame: function(serverCore) 
 {
 	//right so a game has 2 players and wants to begin
         //the host already knows they are hosting,
@@ -217,23 +215,23 @@ startGame: function(serverGame)
         
 	//now we tell both that the game is ready to start
         //clients will reset their positions in this case.
-	for (var c = 0; c < serverGame.serverClientArray.length; c++)
+	for (var c = 0; c < serverCore.serverClientArray.length; c++)
 	{
-		var client = serverGame.serverClientArray[c].client;
-		if (client == serverGame.clientHost)
+		var client = serverCore.serverClientArray[c].client;
+		if (client == serverCore.clientHost)
 		{
-        		client.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
+        		client.send('s.r.'+ String(serverCore.local_time).replace('.','-'));
 		}
 		else
 		{
-        		client.send('s.j.' + serverGame.clientHost.userid);
-        		client.serverGame = serverGame;
-        		client.send('s.r.'+ String(serverGame.serverCore.local_time).replace('.','-'));
+        		client.send('s.j.' + serverCore.clientHost.userid);
+        		client.serverCore = serverCore;
+        		client.send('s.r.'+ String(serverCore.local_time).replace('.','-'));
 		}
 	}
 
        	//set this flag, so that the update loop can run it.
-        serverGame.active = true;
+        serverCore.active = true;
 },
 
 findGame: function(client) 
@@ -247,18 +245,18 @@ findGame: function(client)
         	var joined_a_game = false;
 
                 //Check the list of games for an open game
-            	for(var gameid in this.serverGamesArray) 
+            	for(var gameid in this.serverCoreArray) 
 		{
                 	//only care about our own properties.
-                	if (!this.serverGamesArray.hasOwnProperty(gameid)) 
+                	if (!this.serverCoreArray.hasOwnProperty(gameid)) 
 			{
 				continue;
 			}
                     	//get the game we are checking against
-                	var serverGame = this.serverGamesArray[gameid];
+                	var serverCore = this.serverCoreArray[gameid];
 
                     	//If the game is a player short
-                	if (serverGame.player_count < 2) 
+                	if (serverCore.player_count < 2) 
 			{
                         	//someone wants us to join!
                     		joined_a_game = true;
@@ -266,16 +264,16 @@ findGame: function(client)
                         	//the player as the client of this game
 
 				//add to serverClientArray	
-				serverGame.serverClientArray[1].setClient(client);
+				serverCore.serverClientArray[1].setClient(client);
 				
                     		//assign client to a player	
-				serverGame.serverCore.serverPlayerArray[1].setClient(client);
+				serverCore.serverPlayerArray[1].setClient(client);
 
-                    		serverGame.player_count++;
+                    		serverCore.player_count++;
 
                         	//start running the game on the server,
                         	//which will tell them to respawn/start
-                    		this.startGame(serverGame);
+                    		this.startGame(serverCore);
                 	} //if less than 2 players
             	} //for all games
 

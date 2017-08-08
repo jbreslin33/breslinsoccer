@@ -6,9 +6,9 @@
 */
 var ServerPlayer = new Class(
 {
-initialize: function( serverGame) 
+initialize: function( serverCore) 
 {
-        this.serverGame = serverGame;
+        this.serverCore = serverCore;
 	this.client = 0;
 
             //Set up initial values for our state information
@@ -30,9 +30,9 @@ initialize: function( serverGame)
             //The world bounds we are confined to
         this.pos_limits = {
             x_min: this.size.hx,
-            x_max: this.serverGame.serverWorld.width - this.size.hx,
+            x_max: this.serverCore.serverWorld.width - this.size.hx,
             y_min: this.size.hy,
-            y_max: this.serverGame.serverWorld.height - this.size.hy
+            y_max: this.serverCore.serverWorld.height - this.size.hy
         };
 },
 setClient: function(client)
