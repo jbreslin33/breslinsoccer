@@ -13,6 +13,7 @@ initialize: function()
 {
 	this.serverCoreArray = new Array();
 	this.game_count = 0;
+	this.MAX_NUMBER_OF_PLAYERS = 2;
 
         this.verbose     = true;
 
@@ -255,7 +256,7 @@ findGame: function(client)
                 	var serverCore = this.serverCoreArray[gameid];
 
                     	//If the game is a player short
-                	if (serverCore.player_count < 2) 
+                	if (serverCore.player_count < this.MAX_NUMBER_OF_PLAYERS) 
 			{
                         	//someone wants us to join!
                     		joined_a_game = true;
@@ -273,7 +274,7 @@ findGame: function(client)
                         	//start running the game on the server,
                         	//which will tell them to respawn/start
                     		this.startGame(serverCore);
-                	} //if less than 2 players
+                	} //if less than MAX PLAYERS
             	} //for all games
 
                 //now if we didn't join a game,

@@ -9,38 +9,32 @@ var ServerCore = new Class(
 {
 initialize: function(server,client)
 {
-/*****
-serverGame old stuff
-****/
-        this.serverClientArray = new Array();
 
-        //host
+	this.mServer = server;
+       
+	//SERVER CORE UNIQUE IDENTIFIERS 
+	this.UUID = require('node-uuid'),
+        this.id = this.UUID()
+        this.player_count = 1;
+
+	//WORLD STUFF
+	this.serverWorld = new ServerWorld(720,480);
+
+	// CLIENT STUFF        
+	this.serverClientArray = new Array();
+
+        //client 1
         var serverClient = new ServerClient();
         serverClient.setClient(client);
         this.serverClientArray.push(serverClient);
         client.serverClient = serverClient;
         this.clientHost = client;
 
-        //other
+        //client 2
         var serverClient = new ServerClient();
         this.serverClientArray.push(serverClient);
 
-        this.UUID = require('node-uuid'),
-        this.id = this.UUID()
-        this.player_count = 1;
-
-/********
-end old stuff
-**********/
-
-        //Store a flag if we are the server
-        //this.server = this.serverGame !== undefined;
-
-	this.serverWorld = new ServerWorld(720,480);
-
-       	//We create a player set, passing them
-        //the game that is running them, as well
-
+	//PLAYER STUFF
 	this.serverPlayerArray = new Array();
 	
 	//create serverPlayers
