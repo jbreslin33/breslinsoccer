@@ -138,13 +138,5 @@ sio.sockets.on('connection', function (client)
 	{
         	//Useful to know when soomeone disconnects
             	console.log('\t socket.io:: client id disconnected: ' + client.userid + ' from serverGameID: ' + client.serverCore.id);
-            
-                //If the client was in a game, set by server.findGame,
-                //we can tell the game server to update that game state.
-            	if(client.serverCore && client.serverCore.id) 
-		{
-                	//player leaving a game should destroy that game
-                	SERVER.endGame(client.serverCore.id, client.userid);
-            	} 
         });
 }); 

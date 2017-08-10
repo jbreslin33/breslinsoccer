@@ -113,14 +113,8 @@ createGame: function(client)
         var serverCore = new ServerCore(this);
 
 	//set the host here for now but eventually it needs to not care who the host is 
-
-	//serverClient.setClient(client);
 	serverCore.serverClientArray[0].setClient(client);
-
-        //client.serverClient = serverClient;
 	client.serverClient = serverCore.serverClientArray[0];
-
-        //this.clientHost = client;
 	serverCore.clientHost = client;
 
 	//Create a new game instance
@@ -150,69 +144,6 @@ createGame: function(client)
         //return it
         return serverCore;
 }, 
-
-//we are requesting to kill a game in progress.
-endGame: function(gameid, userid) 
-{
-	var serverCore = this.serverCoreArray[gameid];
-
-        if(serverCore) 
-	{
-        	//stop the game updates immediate
-            	serverCore.stop_update();
-                
-		//if the game has two players, the one is leaving
-            	if(serverCore.player_count > 1) 
-		{
-
-                	//send the players the message the game is ending
-                	if(userid == serverCore.clientHost.userid) 
-			{
-                        	//the host left, oh snap. Lets try join another game
-
-				for (var c = 0; c < serverCore.serverClientArray.length; c++)
-				{
-					var client = serverCore.serverClientArray[c].client;
-					if (client != serverCore.clientHost)
-					{
-                            			//tell them the game is over
-                        			client.send('s.e');
-
-                           			//now look for/create a new game.
-                        			this.findGame(client);
-					}
-				}
-                	} 
-			else 
-			{
-				for (var c = 0; c < serverCore.serverClientArray.length; c++)
-				{
-					var client = serverCore.serverClientArray[c].client;
-					if (client == serverCore.clientHost)
-					{
-                            			//tell the client the game is ended
-                        			client.send('s.e');
-
-                            			//i am no longer hosting, this game is going down
-                        			client.hosting = false;
-
-                            			//now look for/create a new game.
-                        			this.findGame(client);
-					}
-				}
-                	}
-		}
-
-            	delete this.serverCoreArray[gameid];
-            	this.game_count--;
-
-            	this.log('game removed. there are now ' + this.game_count + ' games' );
-       	} 
-	else 
-	{
-        	this.log('that game was not found!');
-        }
-},
 
 startGame: function(serverCore) 
 {
