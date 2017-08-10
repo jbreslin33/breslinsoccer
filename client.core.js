@@ -403,8 +403,10 @@ client_update: function()
         //and lastly draw these
     	if(this.show_server_pos) 
 	{
-        	this.ghostPlayerArray[0].draw();
-        	this.ghostPlayerArray[1].draw();
+		for (var i = 0; i < this.MAX_NUMBER_OF_PLAYERS; i++)
+		{
+        		this.ghostPlayerArray[i].draw();
+		}
     	}
 
         //Work out the fps average
