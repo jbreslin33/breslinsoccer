@@ -542,7 +542,7 @@ client_reset_positions: function()
     	this.clientPlayerArray[1].pos = { x:500, y:200 };
 
         //Make sure the local player physics is updated
-    	this.clientPlayerArray[0].pos = this.pos(this.clientPlayerArray[0].pos);
+    	//this.clientPlayerArray[0].pos = this.pos(this.clientPlayerArray[0].pos);
 
         //Position all debug view items to their owners position
     	this.ghostPlayerArray[0].pos = this.pos(this.clientPlayerArray[0].pos);
