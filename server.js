@@ -12,7 +12,6 @@ var Server = new Class(
 initialize: function()
 {
 	this.serverCoreArray = new Array();
-	this.serverClientsArray = new Array();
 	this.game_count = 0;
 
         this.verbose     = true;
