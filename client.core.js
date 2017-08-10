@@ -324,27 +324,15 @@ client_process_net_updates: function()
             	//The most recent server update
         	var latest_server_data = this.server_updates[ this.server_updates.length-1 ];
 
-		//111111111111111
-            	//update the dest block, this is a simple lerp
-            	//to the target from the previous point in the server_updates buffer
-        	this.ghostPlayerArray[1].pos = this.pos(latest_server_data[1]);
-        	this.lerpPlayerArray[1].pos = this.v_lerp(previous[1], target[1], time_point);
+		for (var i = 0; i < this.MAX_NUMBER_OF_PLAYERS; i++)
+		{
+            		//update the dest block, this is a simple lerp
+        		this.ghostPlayerArray[i].pos = this.pos(latest_server_data[i]);
+        		this.lerpPlayerArray[i].pos = this.v_lerp(previous[i], target[i], time_point);
 
-		//client smoothing
-            	this.clientPlayerArray[1].pos = this.v_lerp( this.clientPlayerArray[1].pos, this.lerpPlayerArray[1].pos, this._pdt*this.client_smooth);
-
-		//0000000000000000
-            	//Now, if not predicting client movement , we will maintain the local player position
-            	//using the same method, smoothing the players information from the past.
-                //These are the exact server positions from this tick, but only for the ghost
-
-                //The other players positions in this timeline, behind us and in front of us
-
-                //Snap the ghost to the new server position
-            	this.ghostPlayerArray[0].pos = this.pos(latest_server_data[0]);
-            	this.lerpPlayerArray[0].pos = this.v_lerp(previous[0], target[0], time_point);
-
-                this.clientPlayerArray[0].pos = this.v_lerp( this.clientPlayerArray[0].pos, this.lerpPlayerArray[0].pos, this._pdt*this.client_smooth);
+			//client smoothing
+            		this.clientPlayerArray[i].pos = this.v_lerp( this.clientPlayerArray[i].pos, this.lerpPlayerArray[i].pos, this._pdt*this.client_smooth);
+		}
 
     	} //if target && previous
 }, 
