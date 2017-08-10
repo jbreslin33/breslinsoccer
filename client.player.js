@@ -23,9 +23,6 @@ initialize: function( clientCore)
         this.old_state = {pos:{x:0,y:0}};
         this.cur_state = {pos:{x:0,y:0}};
         this.state_time = new Date().getTime();
-
-        //Our local history of inputs
-        this.inputs = [];
 }, 
   
 draw: function(){

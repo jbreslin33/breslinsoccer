@@ -234,13 +234,6 @@ client_handle_input: function()
         	//Update what sequence we are on now
         	this.input_seq += 1;
 
-            	//Store the input state as a snapshot of what happened.
-        	this.clientPlayerArray[0].inputs.push({
-            		inputs : input,
-            		time : this.local_time.fixed(3),
-            		seq : this.input_seq
-        	});
-
             	//Send the packet of information to the server.
             	//The input packets are labelled with an 'i' in front.
         	var server_packet = 'i.';
