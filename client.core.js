@@ -18,29 +18,26 @@ initialize: function()
 
   	//Used in collision etc.
 	this.clientWorld = new ClientWorld(720,480);
-
+		
+	//clients and players and ghosts
 	this.clientPlayerArray = new Array();
-	this.clientPlayerArray.push(new ClientPlayer(this));
-	this.clientPlayerArray.push(new ClientPlayer(this));
-	
-        //Debugging ghosts, to help visualise things
 	this.ghostPlayerArray = new Array();
-	this.ghostPlayerArray.push(new ClientPlayer(this));
-	this.ghostPlayerArray.push(new ClientPlayer(this));
-	
 	this.lerpPlayerArray = new Array();
-	this.lerpPlayerArray.push(new ClientPlayer(this));
-	this.lerpPlayerArray.push(new ClientPlayer(this));
 
-	this.lerpPlayerArray[1].state = 'dest_pos';
+	for (var i = 0; i < this.MAX_NUMBER_OF_PLAYERS; i++)
+	{
+		this.clientPlayerArray.push(new ClientPlayer(this));
+	
+        	//Debugging ghosts, to help visualise things
+		this.ghostPlayerArray.push(new ClientPlayer(this));
+	
+		this.lerpPlayerArray.push(new ClientPlayer(this));
+	}
 
         this.lerpPlayerArray[1].info_color = 'rgba(255,255,255,0.1)';
 
         this.ghostPlayerArray[0].info_color = 'rgba(255,255,255,0.2)';
         this.ghostPlayerArray[1].info_color = 'rgba(255,255,255,0.2)';
-
-        this.ghostPlayerArray[0].state = 'server_pos';
-        this.ghostPlayerArray[1].state = 'server_pos';
 
         this.ghostPlayerArray[0].pos = { x:20, y:20 };
         this.ghostPlayerArray[1].pos = { x:500, y:200 };

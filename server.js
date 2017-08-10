@@ -115,6 +115,7 @@ createGame: function(client)
 	//set the host here for now but eventually it needs to not care who the host is 
 	serverCore.serverClientArray[0].setClient(client);
 	client.serverClient = serverCore.serverClientArray[0];
+
 	serverCore.clientHost = client;
 
 	//Create a new game instance
