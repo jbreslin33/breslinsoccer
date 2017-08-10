@@ -22,18 +22,12 @@ initialize: function(server)
 
 	// CLIENT STUFF        
 	this.serverClientArray = new Array();
-
-        //client 1
-        var serverClient = new ServerClient();
-        this.serverClientArray.push(serverClient);
-
-        //serverClient.setClient(client);
-        //client.serverClient = serverClient;
-        //this.clientHost = client;
-
-        //client 2
-        var serverClient = new ServerClient();
-        this.serverClientArray.push(serverClient);
+	
+	for (var c = 0; c < this.mServer.MAX_NUMBER_OF_PLAYERS; c++)
+	{
+        	var serverClient = new ServerClient();
+        	this.serverClientArray.push(serverClient);
+	}
 
 	//PLAYER STUFF
 	this.serverPlayerArray = new Array();
