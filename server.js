@@ -80,10 +80,7 @@ _onMessage: function(client,message)
 	else if (message_type == 'c') 
 	{    
 		//Client changed their color!
-            	if(client.serverCore.clientHost != client)
-		{
-                	client.send('s.c.' + message_parts[1]);
-		}
+               	client.send('s.c.' + message_parts[1]);
         } 
 	else if (message_type == 'l') 
 	{    //A client is asking for lag simulation
