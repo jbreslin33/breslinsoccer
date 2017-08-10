@@ -378,6 +378,7 @@ client_update: function()
 
         //Capture inputs from the player
     	this.client_handle_input();
+		
 
         //Network player just gets drawn normally, with interpolation from
         //the server updates, smoothing out the positions from the past.
@@ -386,18 +387,18 @@ client_update: function()
         this.client_process_net_updates();
 
         //Now they should have updated, we can draw the entity
-    	this.clientPlayerArray[1].draw();
-
-        //When we are doing client side prediction, we smooth out our position
-        //across frames using local input states we have stored.
-
-        //And then we finally draw
-    	this.clientPlayerArray[0].draw();
-
-        //and these
+	for (var i = 0; i < this.MAX_NUMBER_OF_PLAYERS; i++)
+	{
+    		this.clientPlayerArray[i].draw();
+	}
+        
+	//and these
     	if(this.show_dest_pos) 
 	{
-       		this.lerpPlayerArray[1].draw();
+		for (var i = 0; i < this.MAX_NUMBER_OF_PLAYERS; i++)
+		{
+       			this.lerpPlayerArray[i].draw();
+		}
     	}
 
         //and lastly draw these
