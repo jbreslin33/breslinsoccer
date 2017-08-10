@@ -537,17 +537,12 @@ client_create_debug_gui: function()
 
 client_reset_positions: function() 
 {
-	//var player_host = this.clientPlayerArray[0].host ?  this.clientPlayerArray[0] : this.clientPlayerArray[1];
-    	//var player_client = this.clientPlayerArray[0].host ?  this.clientPlayerArray[1] : this.clientPlayerArray[0];
-
         //Host always spawns at the top left.
     	this.clientPlayerArray[0].pos = { x:20,y:20 };
-    	this.clientPlyaerArray[1].pos = { x:500, y:200 };
+    	this.clientPlayerArray[1].pos = { x:500, y:200 };
 
         //Make sure the local player physics is updated
-    	this.clientPlayerArray[0].old_state.pos = this.pos(this.clientPlayerArray[0].pos);
     	this.clientPlayerArray[0].pos = this.pos(this.clientPlayerArray[0].pos);
-    	this.clientPlayerArray[0].cur_state.pos = this.pos(this.clientPlayerArray[0].pos);
 
         //Position all debug view items to their owners position
     	this.ghostPlayerArray[0].pos = this.pos(this.clientPlayerArray[0].pos);
