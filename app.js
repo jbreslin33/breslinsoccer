@@ -70,7 +70,6 @@ sio.configure(function ()
 //Enter the game server code. The game server handles
 //client connections looking for a game, creating games,
 //leaving games, joining games and ending games when they leave.
-//server = require('./server.js');
 global.window = global.document = global;
 
 var frame_time = 60/1000; // run the local game at 16ms/ 60hz
@@ -107,7 +106,7 @@ if ('undefined' != typeof(global))
     	}
 }());
 
-server = new Server();
+SERVER = new Server();
 
 //Socket.io will call this function when a client connects,
 //So we can send that client looking for a game to play,
@@ -120,7 +119,7 @@ sio.sockets.on('connection', function (client)
 
         //now we can find them a game to play with someone.
         //if no game exists with someone waiting, they create one and wait.
-        server.findGame(client);
+        SERVER.findGame(client);
 
         //Useful to know when someone connects
         console.log('\t socket.io:: player ' + client.userid + ' connected');
@@ -129,7 +128,7 @@ sio.sockets.on('connection', function (client)
         //They send messages here, and we send them to the server to handle.
         client.on('message', function(m) 
 	{
-        	server.onMessage(client, m);
+        	SERVER.onMessage(client, m);
         }); 
 
         //When this client disconnects, we want to tell the game server
@@ -145,7 +144,7 @@ sio.sockets.on('connection', function (client)
             	if(client.serverCore && client.serverCore.id) 
 		{
                 	//player leaving a game should destroy that game
-                	server.endGame(client.serverCore.id, client.userid);
+                	SERVER.endGame(client.serverCore.id, client.userid);
             	} 
         });
 }); 
