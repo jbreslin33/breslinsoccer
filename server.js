@@ -113,7 +113,18 @@ createGame: function(client)
 {
         //Create a new game core instance, this actually runs the
         //game code like collisions and such.
-        var serverCore = new ServerCore(this,client);
+        var serverCore = new ServerCore(this);
+
+	//set the host here for now but eventually it needs to not care who the host is 
+
+	//serverClient.setClient(client);
+	serverCore.serverClientArray[0].setClient(client);
+
+        //client.serverClient = serverClient;
+	client.serverClient = serverCore.serverClientArray[0];
+
+        //this.clientHost = client;
+	serverCore.clientHost = client;
 
 	//Create a new game instance
         //Store it in the list of game

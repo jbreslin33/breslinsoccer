@@ -7,7 +7,7 @@ var ServerClient = require('./server.client');
 
 var ServerCore = new Class(
 {
-initialize: function(server,client)
+initialize: function(server)
 {
 
 	this.mServer = server;
@@ -25,10 +25,11 @@ initialize: function(server,client)
 
         //client 1
         var serverClient = new ServerClient();
-        serverClient.setClient(client);
         this.serverClientArray.push(serverClient);
-        client.serverClient = serverClient;
-        this.clientHost = client;
+
+        //serverClient.setClient(client);
+        //client.serverClient = serverClient;
+        //this.clientHost = client;
 
         //client 2
         var serverClient = new ServerClient();
