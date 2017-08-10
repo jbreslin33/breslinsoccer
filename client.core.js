@@ -541,14 +541,13 @@ client_reset_positions: function()
     	this.clientPlayerArray[0].pos = { x:20,y:20 };
     	this.clientPlayerArray[1].pos = { x:500, y:200 };
 
-        //Make sure the local player physics is updated
-    	//this.clientPlayerArray[0].pos = this.pos(this.clientPlayerArray[0].pos);
-
         //Position all debug view items to their owners position
-    	this.ghostPlayerArray[0].pos = this.pos(this.clientPlayerArray[0].pos);
-    	this.ghostPlayerArray[1].pos = this.pos(this.clientPlayerArray[1].pos);
-
-    	this.lerpPlayerArray[1].pos = this.pos(this.clientPlayerArray[1].pos);
+	for (var i = 0; i < this.MAX_NUMBER_PLAYERS; i++)
+	{
+    		this.ghostPlayerArray[i].pos = this.pos(this.clientPlayerArray[i].pos);
+    		this.lerpPlayerArray[i].pos = this.pos(this.clientPlayerArray[i].pos);
+	}
+    	//this.lerpPlayerArray[1].pos = this.pos(this.clientPlayerArray[1].pos);
 },
 
 client_onreadygame: function(data) 
