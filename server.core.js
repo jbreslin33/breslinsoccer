@@ -38,7 +38,7 @@ initialize: function(server,client)
 	this.serverPlayerArray = new Array();
 	
 	//create serverPlayers
-	for (var p = 0; p < 2; p++)
+	for (var p = 0; p < this.mServer.MAX_NUMBER_OF_PLAYERS; p++)
 	{
 		var serverPlayer = new ServerPlayer(this);
 		this.serverPlayerArray.push(serverPlayer); 

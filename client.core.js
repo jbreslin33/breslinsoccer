@@ -13,6 +13,9 @@ var ClientCore = new Class(
 {
 initialize: function()
 {
+
+	this.MAX_NUMBER_OF_PLAYERS = 2;
+
   	//Used in collision etc.
 	this.clientWorld = new ClientWorld(720,480);
 
