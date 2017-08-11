@@ -99,7 +99,7 @@ onInput: function(client, parts)
 
         //the client should be in a game, so
         //we can tell that game to handle the input
-        if(client && client.serverCore && client.serverCore) 
+        if(client && client.serverCore) 
 	{
         	client.serverCore.handle_server_input(client, input_commands, input_time, input_seq);
         }
