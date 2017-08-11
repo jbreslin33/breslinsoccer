@@ -116,8 +116,6 @@ createGame: function(client)
 	serverCore.serverClientArray[0].setClient(client);
 	client.serverClient = serverCore.serverClientArray[0];
 
-	serverCore.clientHost = client;
-
 	//Create a new game instance
         //Store it in the list of game
         this.serverCoreArray[ serverCore.id ] = serverCore;
@@ -158,6 +156,10 @@ startGame: function(serverCore)
 	for (var c = 0; c < serverCore.serverClientArray.length; c++)
 	{
 		var client = serverCore.serverClientArray[c].client;
+        	client.send('s.j.' + serverCore.serverClientArray[c].userid);
+        	client.serverCore = serverCore;
+        	client.send('s.r.'+ String(serverCore.local_time).replace('.','-'));
+/*
 		if (client == serverCore.clientHost)
 		{
         		client.send('s.r.'+ String(serverCore.local_time).replace('.','-'));
@@ -168,6 +170,7 @@ startGame: function(serverCore)
         		client.serverCore = serverCore;
         		client.send('s.r.'+ String(serverCore.local_time).replace('.','-'));
 		}
+*/
 	}
 
        	//set this flag, so that the update loop can run it.

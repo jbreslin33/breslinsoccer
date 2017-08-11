@@ -557,8 +557,8 @@ client_onreadygame: function(data)
     	console.log('server time is about ' + this.local_time);
 
         //Store their info colors for clarity. server is always blue
-    	clientPlayerArray[0].info_color = '#2288cc';
-    	clientPlayerArray[1].info_color = '#cc8822';
+    	//clientPlayerArray[0].info_color = '#2288cc';
+    	//clientPlayerArray[1].info_color = '#cc8822';
         
         //Update their information
     	clientPlayerArray[0].state = 'Player 1';
@@ -571,11 +571,11 @@ client_onreadygame: function(data)
 client_onjoingame: function(data) 
 {
         //We are not the host
-    	this.clientPlayerArray[0].host = false;
+    	//this.clientPlayerArray[0].host = false;
 
         //Update the local state
-    	this.clientPlayerArray[0].state = 'connected.joined.waiting';
-    	this.clientPlayerArray[0].info_color = '#00bb00';
+    	//this.clientPlayerArray[0].state = 'connected.joined.waiting';
+    	//this.clientPlayerArray[0].info_color = '#00bb00';
 
         //Make sure the positions match servers and other clients
     	this.client_reset_positions();
