@@ -547,7 +547,6 @@ client_reset_positions: function()
     		this.ghostPlayerArray[i].pos = this.pos(this.clientPlayerArray[i].pos);
     		this.lerpPlayerArray[i].pos = this.pos(this.clientPlayerArray[i].pos);
 	}
-    	//this.lerpPlayerArray[1].pos = this.pos(this.clientPlayerArray[1].pos);
 },
 
 client_onreadygame: function(data) 
@@ -561,12 +560,12 @@ client_onreadygame: function(data)
     	console.log('server time is about ' + this.local_time);
 
         //Store their info colors for clarity. server is always blue
-    	player_host.info_color = '#2288cc';
-    	player_client.info_color = '#cc8822';
+    	clientPlayerArray[0].info_color = '#2288cc';
+    	clientPlayerArray[1].info_color = '#cc8822';
         
         //Update their information
-    	player_host.state = 'local_pos(hosting)';
-    	player_client.state = 'local_pos(joined)';
+    	clientPlayerArray[0].state = 'local_pos(hosting)';
+    	clientPlayerArray[1].state = 'local_pos(joined)';
 
     	this.clientPlayerArray[0].state = 'YOU ' + this.clientPlayerArray[0].state;
 
