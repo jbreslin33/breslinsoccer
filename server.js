@@ -112,13 +112,13 @@ createGame: function(client)
 
 	serverCore.serverClientArray[0].setClient(client);
 	client.serverClient = serverCore.serverClientArray[0];
+	serverCore.assignServerClientsToServerPlayers();
 	
 
         this.serverCoreArray[ serverCore.id ] = serverCore;
 
         this.game_count++;
 
-	serverCore.assignServerClientsToServerPlayers();
 
         serverCore.update( new Date().getTime() );
 
@@ -163,6 +163,10 @@ findGame: function(client)
 
 				serverCore.serverClientArray[1].setClient(client);
 				serverCore.serverPlayerArray[1].setClient(client);
+ 
+        			client.serverClient = serverCore.serverClientArray[1];
+
+				serverCore.assignServerClientsToServerPlayers();
                     		serverCore.player_count++;
 
                     		this.startGame(serverCore);
