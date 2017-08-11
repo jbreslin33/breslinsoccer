@@ -108,128 +108,73 @@ onInput: function(client, parts)
 //Define some required functions
 createGame: function(client) 
 {
-        //Create a new game core instance, this actually runs the
-        //game code like collisions and such.
         var serverCore = new ServerCore(this);
 
-	//set the host here for now but eventually it needs to not care who the host is 
 	serverCore.serverClientArray[0].setClient(client);
 	client.serverClient = serverCore.serverClientArray[0];
 
-	//Create a new game instance
-        //Store it in the list of game
         this.serverCoreArray[ serverCore.id ] = serverCore;
 
-        //Keep track
         this.game_count++;
 
-
-	//lets connect serverClients to serverPlayers 
 	serverCore.assignServerClientsToServerPlayers();
 
-        //Start updating the game loop on the server
         serverCore.update( new Date().getTime() );
-
-        //tell the player that they are now the host
-        //s=server message, h=you are hosting
 
         client.send('s.h.'+ String(serverCore.local_time).replace('.','-'));
         console.log('server host at  ' + serverCore.local_time);
         client.serverCore = serverCore;
         client.hosting = true;
         
-        this.log('player ' + client.userid + ' created a game with id ' + client.serverCore.id);
-
-        //return it
         return serverCore;
 }, 
 
 startGame: function(serverCore) 
 {
-	//right so a game has 2 players and wants to begin
-        //the host already knows they are hosting,
-        //tell the other client they are joining a game
-        //s=server message, j=you are joining, send them the host id
-        
-	//now we tell both that the game is ready to start
-        //clients will reset their positions in this case.
 	for (var c = 0; c < serverCore.serverClientArray.length; c++)
 	{
 		var client = serverCore.serverClientArray[c].client;
         	client.send('s.j.' + serverCore.serverClientArray[c].userid);
         	client.serverCore = serverCore;
         	client.send('s.r.'+ String(serverCore.local_time).replace('.','-'));
-/*
-		if (client == serverCore.clientHost)
-		{
-        		client.send('s.r.'+ String(serverCore.local_time).replace('.','-'));
-		}
-		else
-		{
-        		client.send('s.j.' + serverCore.clientHost.userid);
-        		client.serverCore = serverCore;
-        		client.send('s.r.'+ String(serverCore.local_time).replace('.','-'));
-		}
-*/
 	}
 
-       	//set this flag, so that the update loop can run it.
         serverCore.active = true;
 },
 
 findGame: function(client) 
 {
-	this.log('looking for a game. We have : ' + this.game_count);
-
-        //so there are games active,
-        //lets see if one needs another player
         if(this.game_count) 
 	{
         	var joined_a_game = false;
 
-                //Check the list of games for an open game
             	for(var gameid in this.serverCoreArray) 
 		{
-                	//only care about our own properties.
                 	if (!this.serverCoreArray.hasOwnProperty(gameid)) 
 			{
 				continue;
 			}
-                    	//get the game we are checking against
                 	var serverCore = this.serverCoreArray[gameid];
 
-                    	//If the game is a player short
                 	if (serverCore.player_count < this.MAX_NUMBER_OF_PLAYERS) 
 			{
-                        	//someone wants us to join!
                     		joined_a_game = true;
-                        	//increase the player count and store
-                        	//the player as the client of this game
 
-				//add to serverClientArray	
 				serverCore.serverClientArray[1].setClient(client);
-				
-                    		//assign client to a player	
 				serverCore.serverPlayerArray[1].setClient(client);
-
                     		serverCore.player_count++;
 
-                        	//start running the game on the server,
-                        	//which will tell them to respawn/start
                     		this.startGame(serverCore);
-                	} //if less than MAX PLAYERS
-            	} //for all games
+                	} 
+            	}
 
-                //now if we didn't join a game,
-                //we must create one
             	if(!joined_a_game) 
 		{
                 	this.createGame(client);
             	} 
 	} 
 	else 
-	{ //if there are any games at all
-       		//no games? create one!
+	{ 
             	this.createGame(client);
         }
 } 
