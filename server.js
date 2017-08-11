@@ -112,6 +112,7 @@ createGame: function(client)
 
 	serverCore.serverClientArray[0].setClient(client);
 	client.serverClient = serverCore.serverClientArray[0];
+	
 
         this.serverCoreArray[ serverCore.id ] = serverCore;
 

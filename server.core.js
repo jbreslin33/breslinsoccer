@@ -39,6 +39,13 @@ initialize: function(server)
 		this.serverPlayerArray.push(serverPlayer); 
 	}
 
+        for (var p = 0; p < this.serverClientArray.length; p++)
+        {
+                this.serverPlayerArray[p].serverClient = this.serverClientArray[p];
+                this.serverClientArray[p].serverPlayer = this.serverPlayerArray[p];
+	}
+	
+
         this.serverPlayerArray[0].pos = {x:20,y:20};
         this.serverPlayerArray[1].pos = {x:500,y:200};
 
@@ -304,6 +311,9 @@ handle_server_input: function(client, input, input_time, input_seq)
 
         //Store the input on the player instance for processing in the physics loop
    	clientToHandle.inputs.push({inputs:input, time:input_time, seq:input_seq});
+
+
+//	client.serverClient.serverPlayer.inputs.push({inputs:input, time:input_time, seq:input_seq});
 }, 
 
 create_timer: function()

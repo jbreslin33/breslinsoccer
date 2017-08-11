@@ -11,6 +11,7 @@ initialize: function()
 {
 	this.userid = UUID();
 	this.client = 0; 
+	this.serverPlayer = 0;
 	console.log('construct server.client:' + this.userid);
 },
 setClient: function(client)
