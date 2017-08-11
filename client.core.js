@@ -553,9 +553,6 @@ client_onreadygame: function(data)
 {
     	var server_time = parseFloat(data.replace('-','.'));
 
-    	var player_host = this.clientPlayerArray[0].host ?  this.clientPlayerArray[0] : this.clientPlayerArray[1];
-    	var player_client = this.clientPlayerArray[0].host ?  this.clientPlayerArray[1] : this.clientPlayerArray[0];
-
     	this.local_time = server_time + this.net_latency;
     	console.log('server time is about ' + this.local_time);
 
@@ -564,10 +561,8 @@ client_onreadygame: function(data)
     	clientPlayerArray[1].info_color = '#cc8822';
         
         //Update their information
-    	clientPlayerArray[0].state = 'local_pos(hosting)';
-    	clientPlayerArray[1].state = 'local_pos(joined)';
-
-    	this.clientPlayerArray[0].state = 'YOU ' + this.clientPlayerArray[0].state;
+    	clientPlayerArray[0].state = 'Player 1';
+    	clientPlayerArray[1].state = 'Player 2';
 
         //Make sure colors are synced up
      	this.socket.send('c.' + this.clientPlayerArray[0].color);
