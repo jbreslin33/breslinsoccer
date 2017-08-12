@@ -169,7 +169,6 @@ findGame: function(client)
                     		joined_a_game = true;
 
 				serverCore.serverClientArray[1].setClient(client);
-				serverCore.serverPlayerArray[1].setClient(client);
  
                     		serverCore.player_count++;
 
