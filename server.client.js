@@ -18,6 +18,7 @@ setClient: function(client)
 {
 	this.client        = client;
 	this.client.userid = this.userid; 
+	this.client.serverClient = this;
 } 
 
 });
