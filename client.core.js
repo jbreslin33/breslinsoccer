@@ -589,12 +589,10 @@ client_onhostgame: function(data)
 
     	this.local_time = server_time + this.net_latency;
 
-    	this.clientPlayerArray[0].host = true;
+    	this.mClientPlayer = this.clientPlayerArray[0];
 
     	this.clientPlayerArray[0].state = 'hosting.waiting for a player';
     	this.clientPlayerArray[0].info_color = '#cc0000';
-
-    	//this.client_reset_positions();
 }, 
 
 client_onconnected: function(data) 
@@ -736,7 +734,7 @@ client_draw_info: function()
     	} //if this.show_help
 
         //Draw some information for the host
-    	if(this.clientPlayerArray[0].host) 
+    	if(this.clientPlayerArray[0] == this.mClientPlayer) 
 	{
         	this.ctx.fillStyle = 'rgba(255,255,255,0.7)';
         	this.ctx.fillText('You are the host', 10 , 465);
