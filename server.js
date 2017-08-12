@@ -12,6 +12,7 @@ var Server = new Class(
 initialize: function()
 {
 	this.serverCoreArray = new Array();
+	this.mServerCore = 0;
 	this.game_count = 0;
 	this.MAX_NUMBER_OF_PLAYERS = 2;
 
@@ -28,6 +29,8 @@ initialize: function()
     	this._dte = new Date().getTime();
         //a local queue of messages we delay if faking latency
     	this.messages = [];
+
+	this.createGame();
 },
 
 log: function() 
@@ -109,17 +112,18 @@ onInput: function(client, parts)
 createGame: function(client) 
 {
         var serverCore = new ServerCore(this);
+	this.mServerCore = serverCore;
         this.game_count++;
         this.serverCoreArray[ serverCore.id ] = serverCore;
         serverCore.update( new Date().getTime() );
         return serverCore;
 },
 
-joinGame: function(serverCore,client)
+joinGame: function(client)
 {
-	serverCore.serverClientArray[0].setClient(client);
-        client.send('s.h.'+ String(serverCore.local_time).replace('.','-'));
-        client.serverCore = serverCore;
+	this.mServerCore.serverClientArray[0].setClient(client);
+        client.send('s.h.'+ String(this.mServerCore.local_time).replace('.','-'));
+        client.serverCore = this.mServerCore;
 
 /*
 	for (var c = 0; c < serverCore.serverClientArray.length; c++)
@@ -167,26 +171,26 @@ findGame: function(client)
                 	if (serverCore.player_count < this.MAX_NUMBER_OF_PLAYERS) 
 			{
                     		joined_a_game = true;
-	//matchClients
+			
+				this.joinGame(client);	
 				serverCore.serverClientArray[1].setClient(client);
  
                     		serverCore.player_count++;
 
-                    		this.startGame(serverCore);
+                    		//this.startGame(serverCore);
                 	} 
             	}
 
             	if(!joined_a_game) 
 		{
-            		var serverCore = this.createGame();
-			this.joinGame(serverCore,client);
+			this.joinGame(client);
             	} 
 	} 
-	else 
-	{ 
-            	var serverCore = this.createGame();
-		this.joinGame(serverCore,client);
-        }
+	else
+	{
+		this.createGame();
+		this.joinGame(client);
+	}
 },
 
 checkForFirstClient: function(client)
