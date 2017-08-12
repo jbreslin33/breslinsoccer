@@ -109,24 +109,19 @@ onInput: function(client, parts)
 createGame: function(client) 
 {
         var serverCore = new ServerCore(this);
-
-	serverCore.serverClientArray[0].setClient(client);
-
-        this.serverCoreArray[ serverCore.id ] = serverCore;
-
         this.game_count++;
-
+        this.serverCoreArray[ serverCore.id ] = serverCore;
         serverCore.update( new Date().getTime() );
-
-        client.send('s.h.'+ String(serverCore.local_time).replace('.','-'));
-        console.log('server host at  ' + serverCore.local_time);
-        client.serverCore = serverCore;
-        client.hosting = true;
-        
         return serverCore;
-}, 
-joinGame: function(client)
+},
+
+joinGame: function(serverCore,client)
 {
+	serverCore.serverClientArray[0].setClient(client);
+        client.send('s.h.'+ String(serverCore.local_time).replace('.','-'));
+        client.serverCore = serverCore;
+
+/*
 	for (var c = 0; c < serverCore.serverClientArray.length; c++)
 	{
 		if (serverCore.serverClientArray[c].client == 0)
@@ -134,6 +129,7 @@ joinGame: function(client)
 
 		} 
 	}
+*/
 },
 
 startGame: function(serverCore) 
@@ -182,12 +178,14 @@ findGame: function(client)
 
             	if(!joined_a_game) 
 		{
-                	this.createGame(client);
+            		var serverCore = this.createGame();
+			this.joinGame(serverCore,client);
             	} 
 	} 
 	else 
 	{ 
-            	this.createGame(client);
+            	var serverCore = this.createGame();
+		this.joinGame(serverCore,client);
         }
 },
 
