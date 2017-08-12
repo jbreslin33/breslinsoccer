@@ -554,62 +554,25 @@ client_reset_positions: function()
 client_onreadygame: function(data) 
 {
     	var server_time = parseFloat(data.replace('-','.'));
-
     	this.local_time = server_time + this.net_latency;
-    	console.log('server time is about ' + this.local_time);
-
-        //Store their info colors for clarity. server is always blue
-    	//clientPlayerArray[0].info_color = '#2288cc';
-    	//clientPlayerArray[1].info_color = '#cc8822';
-        
-        //Update their information
-    	clientPlayerArray[0].state = 'Player 1';
-    	clientPlayerArray[1].state = 'Player 2';
-
-        //Make sure colors are synced up
-     	this.socket.send('c.' + this.clientPlayerArray[0].color);
-},
-
-client_onjoingame: function(data) 
-{
-        //We are not the host
-    	//this.clientPlayerArray[0].host = false;
-
-        //Update the local state
-    	//this.clientPlayerArray[0].state = 'connected.joined.waiting';
-    	//this.clientPlayerArray[0].info_color = '#00bb00';
-
-        //Make sure the positions match servers and other clients
-    	this.client_reset_positions();
 },
 
 client_onhostgame: function(data) 
 {
     	var server_time = parseFloat(data.replace('-','.'));
-	console.log('server_time:' + server_time);
-
     	this.local_time = server_time + this.net_latency;
 
     	this.mClientPlayer = this.clientPlayerArray[0];
-
-    	this.mClientPlayer.state = 'hosting.waiting for a player';
-    	this.mClientPlayer.info_color = '#cc0000';
 }, 
 
 client_onconnected: function(data) 
 {
-        //The server responded that we are now in a game,
-        //this lets us store the information about ourselves and set the colors
-        //to show we are now ready to be playing.
     	this.mClientPlayer.id = data.id;
-    	this.mClientPlayer.info_color = '#cc0000';
-    	this.mClientPlayer.state = 'connected';
 }, 
 
 client_on_otherclientcolorchange: function(data) 
 {
 	this.clientPlayerArray[1].color = data;
-
 },
 
 client_onping: function(data) 
@@ -634,9 +597,10 @@ client_onnetmessage: function(data)
 		{
                 	case 'h' : //host a game requested
                     		this.client_onhostgame(commanddata); break;
-
+/*
                 	case 'j' : //join a game requested
                     		this.client_onjoingame(commanddata); break;
+*/
 
                 	case 'r' : //ready a game requested
                     		this.client_onreadygame(commanddata); break;
