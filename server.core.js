@@ -304,16 +304,6 @@ server_update: function()
 
 handle_server_input: function(client, input, input_time, input_seq) 
 {
-/*
-        //Fetch which client this refers to out of the two
-    	var clientToHandle =
-        (client.userid == this.serverPlayerArray[0].client.userid) ?
-            this.serverPlayerArray[0] : this.serverPlayerArray[1];
-
-        //Store the input on the player instance for processing in the physics loop
-   	clientToHandle.inputs.push({inputs:input, time:input_time, seq:input_seq});
-*/
-
 	client.serverClient.serverPlayer.inputs.push({inputs:input, time:input_time, seq:input_seq});
 }, 
 
