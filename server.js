@@ -116,7 +116,6 @@ createGame: function(client)
 
         this.game_count++;
 
-
         serverCore.update( new Date().getTime() );
 
         client.send('s.h.'+ String(serverCore.local_time).replace('.','-'));
@@ -142,7 +141,7 @@ startGame: function(serverCore)
 	for (var c = 0; c < serverCore.serverClientArray.length; c++)
 	{
 		var client = serverCore.serverClientArray[c].client;
-        	client.send('s.j.' + serverCore.serverClientArray[c].userid);
+        	//client.send('s.j.' + serverCore.serverClientArray[c].userid);
         	client.serverCore = serverCore;
         	client.send('s.r.'+ String(serverCore.local_time).replace('.','-'));
 	}
