@@ -295,9 +295,9 @@ server_update: function()
         //Send the snapshot of the players
 	for (var i = 0; i < this.serverPlayerArray.length; i++)
 	{
-		if (this.serverPlayerArray[i].client)
+		if (this.serverPlayerArray[i].serverClient.client)
 		{
-        		this.serverPlayerArray[i].client.emit( 'onserverupdate', this.lastStateArray );
+        		this.serverPlayerArray[i].serverClient.client.emit( 'onserverupdate', this.lastStateArray );
 		}
 	}
 }, 

@@ -112,7 +112,7 @@ createGame: function(client)
 
 	serverCore.serverClientArray[0].setClient(client);
 	client.serverClient = serverCore.serverClientArray[0];
-	serverCore.assignServerClientsToServerPlayers();
+	//serverCore.assignServerClientsToServerPlayers();
 	
 
         this.serverCoreArray[ serverCore.id ] = serverCore;
@@ -129,6 +129,16 @@ createGame: function(client)
         
         return serverCore;
 }, 
+joinGame: function(client)
+{
+	for (var c = 0; c < serverCore.serverClientArray.length; c++)
+	{
+		if (serverCore.serverClientArray[c].client == 0)
+		{
+
+		} 
+	}
+},
 
 startGame: function(serverCore) 
 {
@@ -182,6 +192,11 @@ findGame: function(client)
 	{ 
             	this.createGame(client);
         }
+},
+
+checkForFirstClient: function(client)
+{
+
 } 
 });
 
