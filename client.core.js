@@ -601,10 +601,9 @@ client_onconnected: function(data)
         //The server responded that we are now in a game,
         //this lets us store the information about ourselves and set the colors
         //to show we are now ready to be playing.
-    	this.clientPlayerArray[0].id = data.id;
-    	this.clientPlayerArray[0].info_color = '#cc0000';
-    	this.clientPlayerArray[0].state = 'connected';
-    	this.clientPlayerArray[0].online = true;
+    	this.mClientPlayer.id = data.id;
+    	this.mClientPlayer.info_color = '#cc0000';
+    	this.mClientPlayer.state = 'connected';
 }, 
 
 client_on_otherclientcolorchange: function(data) 
@@ -664,7 +663,6 @@ client_ondisconnect: function(data)
 
     	this.clientPlayerArray[0].info_color = 'rgba(255,255,255,0.1)';
     	this.clientPlayerArray[0].state = 'not-connected';
-    	this.clientPlayerArray[0].online = false;
 
     	this.clientPlayerArray[1].info_color = 'rgba(255,255,255,0.1)';
     	this.clientPlayerArray[1].state = 'not-connected';
