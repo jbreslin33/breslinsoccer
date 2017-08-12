@@ -112,8 +112,6 @@ createGame: function(client)
 
 	serverCore.serverClientArray[0].setClient(client);
 	client.serverClient = serverCore.serverClientArray[0];
-	//serverCore.assignServerClientsToServerPlayers();
-	
 
         this.serverCoreArray[ serverCore.id ] = serverCore;
 
@@ -176,7 +174,6 @@ findGame: function(client)
  
         			client.serverClient = serverCore.serverClientArray[1];
 
-				//serverCore.assignServerClientsToServerPlayers();
                     		serverCore.player_count++;
 
                     		this.startGame(serverCore);

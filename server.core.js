@@ -73,17 +73,6 @@ initialize: function(server)
 
 },
 
-assignServerClientsToServerPlayers: function()
-{
-	for (var p = 0; p < this.serverClientArray.length; p++)
-	{
-		//if (this.serverPlayerArray[p].client == 0)
-		//{
-			this.serverPlayerArray[p].setClient(this.serverClientArray[p].client);
-		//}
-	}
-},
-
 /*
     Helper functions for the game code
 
