@@ -176,7 +176,7 @@ findGame: function(client)
  
         			client.serverClient = serverCore.serverClientArray[1];
 
-				serverCore.assignServerClientsToServerPlayers();
+				//serverCore.assignServerClientsToServerPlayers();
                     		serverCore.player_count++;
 
                     		this.startGame(serverCore);
