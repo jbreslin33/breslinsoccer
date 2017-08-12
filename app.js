@@ -115,11 +115,11 @@ SERVER = new Server();
 sio.sockets.on('connection', function (client) 
 {
         //tell the player they connected, giving them their id
-        client.emit('onconnected', { id: client.userid } );
 
         //now we can find them a game to play with someone.
         //if no game exists with someone waiting, they create one and wait.
         SERVER.findGame(client);
+        client.emit('onconnected', { id: client.userid } );
 
         //Useful to know when someone connects
         console.log('\t socket.io:: player ' + client.userid + ' connected');

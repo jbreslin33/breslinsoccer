@@ -18,6 +18,8 @@ initialize: function()
 
   	//Used in collision etc.
 	this.clientWorld = new ClientWorld(720,480);
+
+	this.mClientPlayer = 0;
 		
 	//clients and players and ghosts
 	this.clientPlayerArray = new Array();
