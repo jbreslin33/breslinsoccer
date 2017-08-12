@@ -586,13 +586,14 @@ client_onjoingame: function(data)
 client_onhostgame: function(data) 
 {
     	var server_time = parseFloat(data.replace('-','.'));
+	console.log('server_time:' + server_time);
 
     	this.local_time = server_time + this.net_latency;
 
     	this.mClientPlayer = this.clientPlayerArray[0];
 
-    	this.clientPlayerArray[0].state = 'hosting.waiting for a player';
-    	this.clientPlayerArray[0].info_color = '#cc0000';
+    	this.mClientPlayer.state = 'hosting.waiting for a player';
+    	this.mClientPlayer.info_color = '#cc0000';
 }, 
 
 client_onconnected: function(data) 
