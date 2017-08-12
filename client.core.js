@@ -585,23 +585,16 @@ client_onjoingame: function(data)
 
 client_onhostgame: function(data) 
 {
-        //The server sends the time when asking us to host, but it should be a new game.
-        //so the value will be really small anyway (15 or 16ms)
     	var server_time = parseFloat(data.replace('-','.'));
 
-        //Get an estimate of the current time on the server
     	this.local_time = server_time + this.net_latency;
 
-        //Set the flag that we are hosting, this helps us position respawns correctly
     	this.clientPlayerArray[0].host = true;
 
-        //Update debugging information to display state
     	this.clientPlayerArray[0].state = 'hosting.waiting for a player';
     	this.clientPlayerArray[0].info_color = '#cc0000';
 
-        //Make sure we start in the correct place as the host.
-    	this.client_reset_positions();
-
+    	//this.client_reset_positions();
 }, 
 
 client_onconnected: function(data) 
