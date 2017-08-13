@@ -562,7 +562,7 @@ client_onhostgame: function(data)
     	var server_time = parseFloat(data.replace('-','.'));
     	this.local_time = server_time + this.net_latency;
 
-    	this.mClientPlayer = this.clientPlayerArray[0];
+    	//this.mClientPlayer = this.clientPlayerArray[0];
 }, 
 
 client_onconnected: function(data) 
@@ -571,20 +571,16 @@ client_onconnected: function(data)
 	data.splice(0, 1);
 	for (var i = 0; i < data.length; i++)
 	{
-		console.log('i:' + i);
 		this.clientPlayerArray[i].id = data[i]; 
-		console.log('idA' + this.clientPlayerArray[i].id); 
 	}
 
 	//set you
 	for (var i = 0; i < this.clientPlayerArray.length; i++)
 	{
-		console.log('idB' + this.clientPlayerArray[i].id); 
 		//its you
 		if (yourid == this.clientPlayerArray[i].id)
 		{
 			this.mClientPlayer = this.clientPlayerArray[i];
-			console.log('you id' + this.mClientPlayer.id); 
 		}
 	}
 }, 
