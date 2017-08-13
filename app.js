@@ -114,14 +114,14 @@ SERVER = new Server();
 //maintain the list if players.
 sio.sockets.on('connection', function (client) 
 {
-        SERVER.findGame(client);
+        var serverCore = SERVER.findGame(client);
 
 	var serverClientIDArray = new Array();
 	serverClientIDArray.push(client.userid);
 
-	for (var i = 0; i < SERVER.mServerCore.serverClientArray.length; i++)
+	for (var i = 0; i < serverCore.serverClientArray.length; i++)
 	{
-		serverClientIDArray.push(SERVER.mServerCore.serverClientArray[i].userid);	
+		serverClientIDArray.push(serverCore.serverClientArray[i].userid);	
 	}
 	for (var i = 0; i < serverClientIDArray.length; i++)
 	{

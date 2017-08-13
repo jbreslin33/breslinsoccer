@@ -12,7 +12,6 @@ var Server = new Class(
 initialize: function()
 {
 	this.serverCoreArray = new Array();
-	this.mServerCore = 0;
 	this.game_count = 0;
 	this.MAX_NUMBER_OF_PLAYERS = 2;
 
@@ -112,18 +111,17 @@ onInput: function(client, parts)
 createGame: function(client) 
 {
         var serverCore = new ServerCore(this);
-	this.mServerCore = serverCore;
         this.game_count++;
         this.serverCoreArray[ serverCore.id ] = serverCore;
         serverCore.update( new Date().getTime() );
         return serverCore;
 },
 
-joinGame: function(client)
+joinGame: function(serverCore,client)
 {
-	this.mServerCore.serverClientArray[0].setClient(client);
-        client.send('s.h.'+ String(this.mServerCore.local_time).replace('.','-'));
-        client.serverCore = this.mServerCore;
+	serverCore.serverClientArray[0].setClient(client);
+        client.send('s.h.'+ String(serverCore.local_time).replace('.','-'));
+        client.serverCore = serverCore;
 
 /*
 	for (var c = 0; c < serverCore.serverClientArray.length; c++)
@@ -158,6 +156,7 @@ findGame: function(client)
 {
 
 	var serverCore = 0;
+	var serverCore = 0;
         if(this.game_count) 
 	{
         	var joined_a_game = false;
@@ -174,7 +173,7 @@ findGame: function(client)
 			{
                     		joined_a_game = true;
 			
-				this.joinGame(client);	
+				this.joinGame(serverCore,client);	
 				serverCore.serverClientArray[1].setClient(client);
  
                     		serverCore.player_count++;
@@ -185,15 +184,15 @@ findGame: function(client)
 
             	if(!joined_a_game) 
 		{
-			this.joinGame(client);
+			this.joinGame(serverCore,client);
             	} 
 	} 
 	else
 	{
 		serverCore = this.createGame();
-		this.joinGame(client);
+		this.joinGame(serverCore,client);
 	}
-	return 
+	return serverCore;
 },
 
 checkForFirstClient: function(client)
