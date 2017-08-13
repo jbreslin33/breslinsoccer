@@ -561,8 +561,6 @@ client_onhostgame: function(data)
 {
     	var server_time = parseFloat(data.replace('-','.'));
     	this.local_time = server_time + this.net_latency;
-
-    	//this.mClientPlayer = this.clientPlayerArray[0];
 }, 
 
 client_onconnected: function(data) 
