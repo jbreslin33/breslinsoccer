@@ -117,19 +117,19 @@ sio.sockets.on('connection', function (client)
         SERVER.findGame(client);
 
 	var serverClientIDArray = new Array();
+	serverClientIDArray.push(client.userid);
 
-	console.log('length:' + SERVER.mServerCore.serverClientArray.length)
 	for (var i = 0; i < SERVER.mServerCore.serverClientArray.length; i++)
 	{
-		console.log('what:' + SERVER.mServerCore.serverClientArray[i].userid);  
 		serverClientIDArray.push(SERVER.mServerCore.serverClientArray[i].userid);	
 	}
+	for (var i = 0; i < serverClientIDArray.length; i++)
+	{
+		console.log('id:' + serverClientIDArray[i]);
+	}
+	
 
-        client.emit('onconnected', { id: client.userid } );
-        //client.emit('onserverclientidarray', { serverClientIDArray: serverClientIDArray } );
-        client.emit('onserverclientidarray', serverClientIDArray );
-
-
+        client.emit('onconnected', serverClientIDArray );
 
         console.log('\t socket.io:: player ' + client.userid + ' connected');
         

@@ -567,17 +567,26 @@ client_onhostgame: function(data)
 
 client_onconnected: function(data) 
 {
-    	this.mClientPlayer.id = data.id;
-}, 
-
-client_onserverclientidarray: function(data) 
-{
-	console.log('data ' + data.length); 
+	var yourid = data[0];
+	data.splice(0, 1);
 	for (var i = 0; i < data.length; i++)
 	{
-		console.log('data ' + i + ':' + data[i]); 
+		console.log('i:' + i);
+		this.clientPlayerArray[i].id = data[i]; 
+		console.log('idA' + this.clientPlayerArray[i].id); 
 	}
-    	//this.mClientPlayer.id = data.id;
+
+	//set you
+	for (var i = 0; i < this.clientPlayerArray.length; i++)
+	{
+		console.log('idB' + this.clientPlayerArray[i].id); 
+		//its you
+		if (yourid == this.clientPlayerArray[i].id)
+		{
+			this.mClientPlayer = this.clientPlayerArray[i];
+			console.log('you id' + this.mClientPlayer.id); 
+		}
+	}
 }, 
 
 client_on_otherclientcolorchange: function(data) 
@@ -663,9 +672,6 @@ client_connect_to_server: function()
 	//Handle when we connect to the server, showing state and storing id's.
         this.socket.on('onconnected', this.client_onconnected.bind(this));
 	
-	//Handle when we connect to the server, showing state and storing id's.
-        this.socket.on('onserverclientidarray', this.client_onserverclientidarray.bind(this));
-
        	//On error we just show that we are not connected for now. Can print the data.
        	this.socket.on('error', this.client_ondisconnect.bind(this));
         
