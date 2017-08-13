@@ -116,7 +116,20 @@ sio.sockets.on('connection', function (client)
 {
         SERVER.findGame(client);
 
+	var serverClientIDArray = new Array();
+
+	console.log('length:' + SERVER.mServerCore.serverClientArray.length)
+	for (var i = 0; i < SERVER.mServerCore.serverClientArray.length; i++)
+	{
+		console.log('what:' + SERVER.mServerCore.serverClientArray[i].userid);  
+		serverClientIDArray.push(SERVER.mServerCore.serverClientArray[i].userid);	
+	}
+
         client.emit('onconnected', { id: client.userid } );
+        //client.emit('onserverclientidarray', { serverClientIDArray: serverClientIDArray } );
+        client.emit('onserverclientidarray', serverClientIDArray );
+
+
 
         console.log('\t socket.io:: player ' + client.userid + ' connected');
         

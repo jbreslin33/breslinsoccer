@@ -27,6 +27,7 @@ initialize: function(server)
 	{
         	var serverClient = new ServerClient();
         	this.serverClientArray.push(serverClient);
+		console.log('sc:' + serverClient.userid);
 	}
 
 	//PLAYER STUFF

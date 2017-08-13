@@ -156,6 +156,8 @@ findOpenServerClient: function(client)
 
 findGame: function(client) 
 {
+
+	var serverCore = 0;
         if(this.game_count) 
 	{
         	var joined_a_game = false;
@@ -166,7 +168,7 @@ findGame: function(client)
 			{
 				continue;
 			}
-                	var serverCore = this.serverCoreArray[gameid];
+                	serverCore = this.serverCoreArray[gameid];
 
                 	if (serverCore.player_count < this.MAX_NUMBER_OF_PLAYERS) 
 			{
@@ -188,9 +190,10 @@ findGame: function(client)
 	} 
 	else
 	{
-		this.createGame();
+		serverCore = this.createGame();
 		this.joinGame(client);
 	}
+	return 
 },
 
 checkForFirstClient: function(client)

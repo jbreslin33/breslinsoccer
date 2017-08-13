@@ -570,6 +570,16 @@ client_onconnected: function(data)
     	this.mClientPlayer.id = data.id;
 }, 
 
+client_onserverclientidarray: function(data) 
+{
+	console.log('data ' + data.length); 
+	for (var i = 0; i < data.length; i++)
+	{
+		console.log('data ' + i + ':' + data[i]); 
+	}
+    	//this.mClientPlayer.id = data.id;
+}, 
+
 client_on_otherclientcolorchange: function(data) 
 {
 	this.clientPlayerArray[1].color = data;
@@ -652,6 +662,9 @@ client_connect_to_server: function()
             
 	//Handle when we connect to the server, showing state and storing id's.
         this.socket.on('onconnected', this.client_onconnected.bind(this));
+	
+	//Handle when we connect to the server, showing state and storing id's.
+        this.socket.on('onserverclientidarray', this.client_onserverclientidarray.bind(this));
 
        	//On error we just show that we are not connected for now. Can print the data.
        	this.socket.on('error', this.client_ondisconnect.bind(this));
