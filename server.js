@@ -119,19 +119,21 @@ createGame: function(client)
 
 joinGame: function(serverCore,client)
 {
-	serverCore.serverClientArray[0].setClient(client);
-        client.send('s.h.'+ String(serverCore.local_time).replace('.','-'));
-        client.serverCore = serverCore;
-
-/*
 	for (var c = 0; c < serverCore.serverClientArray.length; c++)
 	{
 		if (serverCore.serverClientArray[c].client == 0)
 		{
-
+			console.log('client slot: ' + c + ' overtaking');
+			serverCore.serverClientArray[c].setClient(client);
+        		client.send('s.h.'+ String(serverCore.local_time).replace('.','-'));
+        		client.serverCore = serverCore;
+			return;	
 		} 
+		else
+		{
+			console.log('client slot: ' + c + ' taken');
+		}
 	}
-*/
 },
 
 startGame: function(serverCore) 
@@ -139,9 +141,12 @@ startGame: function(serverCore)
 	for (var c = 0; c < serverCore.serverClientArray.length; c++)
 	{
 		var client = serverCore.serverClientArray[c].client;
-        	//client.send('s.j.' + serverCore.serverClientArray[c].userid);
-        	client.serverCore = serverCore;
-        	client.send('s.r.'+ String(serverCore.local_time).replace('.','-'));
+		if (client != 0)
+		{
+        		client.send('s.j.' + serverCore.serverClientArray[c].userid);
+        		client.serverCore = serverCore;
+        		client.send('s.r.'+ String(serverCore.local_time).replace('.','-'));
+		}
 	}
 
         serverCore.active = true;
@@ -174,7 +179,7 @@ findGame: function(client)
                     		joined_a_game = true;
 			
 				this.joinGame(serverCore,client);	
-				serverCore.serverClientArray[1].setClient(client);
+				this.startGame(serverCore);
  
                     		serverCore.player_count++;
 
@@ -185,6 +190,8 @@ findGame: function(client)
             	if(!joined_a_game) 
 		{
 			this.joinGame(serverCore,client);
+			this.startGame(serverCore);
+			//serverCore.serverClientArray[1].setClient(client);
             	} 
 	} 
 	else
