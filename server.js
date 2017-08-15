@@ -13,7 +13,7 @@ initialize: function()
 {
 	this.serverCoreArray = new Array();
 	this.game_count = 0;
-	this.MAX_NUMBER_OF_PLAYERS = 2;
+	this.MAX_NUMBER_OF_PLAYERS = 3;
 
         this.verbose     = true;
 

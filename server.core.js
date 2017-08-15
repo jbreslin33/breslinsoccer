@@ -15,7 +15,6 @@ initialize: function(server)
 	//SERVER CORE UNIQUE IDENTIFIERS 
 	this.UUID = require('node-uuid'),
         this.id = this.UUID()
-        this.player_count = 1;
 
 	//WORLD STUFF
 	this.serverWorld = new ServerWorld(720,480);
@@ -49,6 +48,7 @@ initialize: function(server)
 
         this.serverPlayerArray[0].pos = {x:20,y:20};
         this.serverPlayerArray[1].pos = {x:500,y:200};
+        this.serverPlayerArray[2].pos = {x:400,y:200};
 
         //The speed at which the clients move.
         this.playerspeed = 120;
@@ -276,10 +276,14 @@ server_update: function()
 
         //Make a snapshot of the current state, for updating the clients
 	this.lastStateArray = [];
-	this.lastStateArray.push(this.serverPlayerArray[0].pos);
-	this.lastStateArray.push(this.serverPlayerArray[1].pos);
-	this.lastStateArray.push(this.serverPlayerArray[0].last_input_seq);
-	this.lastStateArray.push(this.serverPlayerArray[1].last_input_seq);
+	for (var p = 0; p < this.serverPlayerArray.length; p++)
+	{
+		this.lastStateArray.push(this.serverPlayerArray[p].pos);
+	}
+	for (var p = 0; p < this.serverPlayerArray.length; p++)
+	{
+		this.lastStateArray.push(this.serverPlayerArray[p].last_input_seq);
+	}
 	this.lastStateArray.push(this.server_time);
 
         //Send the snapshot of the players

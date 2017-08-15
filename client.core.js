@@ -14,7 +14,7 @@ var ClientCore = new Class(
 initialize: function()
 {
 
-	this.MAX_NUMBER_OF_PLAYERS = 2;
+	this.MAX_NUMBER_OF_PLAYERS = 3;
 
   	//Used in collision etc.
 	this.clientWorld = new ClientWorld(720,480);
@@ -43,9 +43,11 @@ initialize: function()
 
         this.ghostPlayerArray[0].pos = { x:20, y:20 };
         this.ghostPlayerArray[1].pos = { x:500, y:200 };
+        this.ghostPlayerArray[2].pos = { x:400, y:200 };
 
         this.lerpPlayerArray[0].pos = { x:20, y:20 };
         this.lerpPlayerArray[1].pos = { x:500, y:200 };
+        this.lerpPlayerArray[2].pos = { x:400, y:200 };
 
         //The speed at which the clients move.
         this.playerspeed = 120;
@@ -542,6 +544,7 @@ client_reset_positions: function()
         //Host always spawns at the top left.
     	this.clientPlayerArray[0].pos = { x:20,y:20 };
     	this.clientPlayerArray[1].pos = { x:500, y:200 };
+    	this.clientPlayerArray[2].pos = { x:400, y:200 };
 
         //Position all debug view items to their owners position
 	for (var i = 0; i < this.MAX_NUMBER_PLAYERS; i++)
@@ -643,6 +646,9 @@ client_ondisconnect: function(data)
 
     	this.clientPlayerArray[1].info_color = 'rgba(255,255,255,0.1)';
     	this.clientPlayerArray[1].state = 'not-connected';
+    	
+	this.clientPlayerArray[2].info_color = 'rgba(255,255,255,0.1)';
+    	this.clientPlayerArray[2].state = 'not-connected';
 }, 
 
 client_connect_to_server: function() 
