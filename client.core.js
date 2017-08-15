@@ -35,19 +35,17 @@ initialize: function()
 	
 		this.lerpPlayerArray.push(new ClientPlayer(this));
 	}
+	for (var i = 0; i < this.clientPlayerArray.length; i++)
+	{
+        	this.clientPlayerArray[i].pos.set(200,200,0);
+        	this.ghostPlayerArray[i].pos.set(200,200,0);
+        	this.lerpPlayerArray[i].pos.set(200,200,0);
+	}
 
         this.lerpPlayerArray[1].info_color = 'rgba(255,255,255,0.1)';
 
         this.ghostPlayerArray[0].info_color = 'rgba(255,255,255,0.2)';
         this.ghostPlayerArray[1].info_color = 'rgba(255,255,255,0.2)';
-
-        this.ghostPlayerArray[0].pos = { x:20, y:20 };
-        this.ghostPlayerArray[1].pos = { x:500, y:200 };
-        this.ghostPlayerArray[2].pos = { x:400, y:200 };
-
-        this.lerpPlayerArray[0].pos = { x:20, y:20 };
-        this.lerpPlayerArray[1].pos = { x:500, y:200 };
-        this.lerpPlayerArray[2].pos = { x:400, y:200 };
 
         //The speed at which the clients move.
         this.playerspeed = 120;
@@ -542,12 +540,13 @@ client_create_debug_gui: function()
 client_reset_positions: function() 
 {
         //Host always spawns at the top left.
-    	this.clientPlayerArray[0].pos = { x:20,y:20 };
-    	this.clientPlayerArray[1].pos = { x:500, y:200 };
-    	this.clientPlayerArray[2].pos = { x:400, y:200 };
+	for (var i = 0; i < this.clientPlayerArray.length; i++)
+	{
+    		this.clientPlayerArray[i].pos.set(0,0,0);
+	}
 
         //Position all debug view items to their owners position
-	for (var i = 0; i < this.MAX_NUMBER_PLAYERS; i++)
+	for (var i = 0; i < this.clientPlayerArray.length; i++)
 	{
     		this.ghostPlayerArray[i].pos = this.pos(this.clientPlayerArray[i].pos);
     		this.lerpPlayerArray[i].pos = this.pos(this.clientPlayerArray[i].pos);

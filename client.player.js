@@ -12,7 +12,7 @@ initialize: function( clientCore)
         this.clientCore = clientCore;
 
 	//Set up initial values for our state information
-        this.pos = { x:0, y:0 };
+        this.pos = new ClientPoint3D(0,0,0);
         this.size = { x:16, y:16, hx:8, hy:8 };
         this.state = 'not-connected';
         this.color = 'rgba(255,255,255,0.1)';
