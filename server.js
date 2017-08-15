@@ -112,7 +112,7 @@ createGame: function(client)
 {
         var serverCore = new ServerCore(this);
         this.game_count++;
-        this.serverCoreArray[ serverCore.id ] = serverCore;
+        this.serverCoreArray.push(serverCore);
         serverCore.update( new Date().getTime() );
         return serverCore;
 },
@@ -161,43 +161,33 @@ findGame: function(client)
 {
 
 	var serverCore = 0;
-	var serverCore = 0;
-        if(this.game_count) 
+        var joined_a_game = false;
+
+	for (var g = 0; g < this.serverCoreArray.length; g++)
 	{
-        	var joined_a_game = false;
+		console.log('should go thru this once');
+               	var serverCore = this.serverCoreArray[g];
 
-            	for(var gameid in this.serverCoreArray) 
+		for (var c = 0; c < serverCore.serverClientArray.length; c++)
 		{
-                	if (!this.serverCoreArray.hasOwnProperty(gameid)) 
+			if (serverCore.serverClientArray[c].client == 0)
 			{
-				continue;
-			}
-                	serverCore = this.serverCoreArray[gameid];
-
-                	if (serverCore.player_count < this.MAX_NUMBER_OF_PLAYERS) 
-			{
-                    		joined_a_game = true;
-			
-				this.joinGame(serverCore,client);	
+				console.log('breslin should be 1st and happen twice');
+				//we have an opening
+				this.joinGame(serverCore,client);
 				this.startGame(serverCore);
- 
-                    		serverCore.player_count++;
+                    		joined_a_game = true;
+				return serverCore;
+			}
+		} 
+	}
 
-                    		//this.startGame(serverCore);
-                	} 
-            	}
-
-            	if(!joined_a_game) 
-		{
-			this.joinGame(serverCore,client);
-			this.startGame(serverCore);
-			//serverCore.serverClientArray[1].setClient(client);
-            	} 
-	} 
-	else
+	if (joined_a_game == false)
 	{
-		serverCore = this.createGame();
+		console.log('breslin should not happen until player 3');
+		var serverCore = this.createGame();
 		this.joinGame(serverCore,client);
+		this.startGame(serverCore);
 	}
 	return serverCore;
 },
