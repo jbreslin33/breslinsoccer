@@ -1,5 +1,5 @@
 require ('mootools');
-var Server = require('./server');
+var Server = require('./server/server');
     
 var gameport = process.env.PORT || 4004;
 var io       = require('socket.io');
