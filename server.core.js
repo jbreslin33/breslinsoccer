@@ -2,6 +2,7 @@ var ServerPlayer = require('./server.player');
 var ServerWorld = require('./server.world');
 var ServerPitch = require('./server.pitch');
 var ServerClient = require('./server.client');
+var ServerPoint3D = require('./server.point3d');
 
 /* The ServerCore class */
 
@@ -44,11 +45,17 @@ initialize: function(server)
                 this.serverPlayerArray[p].serverClient = this.serverClientArray[p];
                 this.serverClientArray[p].serverPlayer = this.serverPlayerArray[p];
 	}
-	
 
-        this.serverPlayerArray[0].pos = {x:20,y:20};
-        this.serverPlayerArray[1].pos = {x:500,y:200};
-        this.serverPlayerArray[2].pos = {x:400,y:200};
+	//for positions x,y
+	for (var p = 0; p < this.serverPlayerArray.length; p++)	
+	{
+       		this.serverPlayerArray[p].pos.set(200,200,0);
+	}
+
+	
+       // this.serverPlayerArray[0].pos = {x:20,y:20};
+        //this.serverPlayerArray[1].pos = {x:500,y:200};
+        //this.serverPlayerArray[2].pos = {x:400,y:200};
 
         //The speed at which the clients move.
         this.playerspeed = 120;
