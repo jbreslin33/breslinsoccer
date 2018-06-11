@@ -42,7 +42,7 @@ func _ready():
 		#if in the client, give control of player 2 to itself, this function is tree recursive by default
 		get_node("player2").set_network_master(get_tree().get_network_unique_id())
 	
-	#let each paddle know which one is left, too
+	#let each player know which one is left, too
 	get_node("player1").left = true
 	get_node("player2").left = false
 	print("unique id: ", get_tree().get_network_unique_id())

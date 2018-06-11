@@ -19,7 +19,7 @@ func _hide_you_label():
 	get_node("you").hide()
 
 func _process(delta):
-	#is the master of the paddle		
+	#is the master of the player		
 	if is_network_master():		
 		motion = 0
 		if Input.is_action_pressed("move_up"):
@@ -50,6 +50,6 @@ func _process(delta):
 		position = Vector2(pos.x, screen_size.y)
 	
 	
-func _on_paddle_area_enter( area ):
+func _on_player_area_enter( area ):
 	if is_network_master():
 		area.rpc("bounce", left, randf()) #random for new direction generated on each peer

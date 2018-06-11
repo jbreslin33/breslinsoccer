@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://paddle.gd" type="Script" id=1]
-[ext_resource path="res://paddle.png" type="Texture" id=2]
+[ext_resource path="res://player.gd" type="Script" id=1]
+[ext_resource path="res://player.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -9,7 +9,7 @@ custom_solver_bias = 0.0
 radius = 4.78568
 height = 23.6064
 
-[node name="paddle" type="Area2D"]
+[node name="player" type="Area2D"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -50,6 +50,6 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[connection signal="area_entered" from="." to="." method="_on_paddle_area_enter"]
+[connection signal="area_entered" from="." to="." method="_on_player_area_enter"]
 
 
