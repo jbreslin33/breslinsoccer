@@ -14,19 +14,19 @@ script = ExtResource( 1 )
 position = Vector2( 320, 200 )
 texture = ExtResource( 2 )
 
-[node name="player1" parent="." instance=ExtResource( 3 )]
+[node name="home1" parent="." instance=ExtResource( 3 )]
 
-position = Vector2( 32.49, 188.622 )
+position = Vector2( 32, 10)
 
-[node name="sprite" parent="player1"]
+[node name="sprite" parent="home1"]
 
 self_modulate = Color( 1, 0, 0.960938, 1 )
 
-[node name="player2" parent="." instance=ExtResource( 3 )]
+[node name="away1" parent="." instance=ExtResource( 3 )]
 
-position = Vector2( 608.88, 188.622 )
+position = Vector2( 608, 10)
 
-[node name="sprite" parent="player2"]
+[node name="sprite" parent="away1"]
 
 self_modulate = Color( 0, 0.929688, 1, 1 )
 
@@ -144,5 +144,5 @@ flat = false
 [connection signal="pressed" from="exit_game" to="." method="_on_exit_game_pressed"]
 
 
-[editable path="player1"]
-[editable path="player2"]
+[editable path="home1"]
+[editable path="away1"]
