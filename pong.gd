@@ -38,6 +38,7 @@ func _ready():
 	if get_tree().is_network_server():		
 		#if in the server, get control of player 2 to the other peeer, this function is tree recursive by default
 		get_node("away1").set_network_master(get_tree().get_network_connected_peers()[0])
+		get_node("away2").set_network_master(get_tree().get_network_connected_peers()[1])
 
 	else:
 		#if in the client, give control of player 2 to itself, this function is tree recursive by default
@@ -46,4 +47,5 @@ func _ready():
 	#let each player know which one is left, too
 	get_node("home1").left = true
 	get_node("away1").left = false
+	get_node("away2").left = false
 	print("unique id: ", get_tree().get_network_unique_id())

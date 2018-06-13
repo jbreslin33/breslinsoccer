@@ -17,18 +17,18 @@ texture = ExtResource( 2 )
 [node name="home1" parent="." instance=ExtResource( 3 )]
 
 position = Vector2( 32, 10)
-
 [node name="sprite" parent="home1"]
-
 self_modulate = Color( 1, 0, 0.960938, 1 )
 
 [node name="away1" parent="." instance=ExtResource( 3 )]
-
 position = Vector2( 608, 10)
-
 [node name="sprite" parent="away1"]
-
 self_modulate = Color( 0, 0.929688, 1, 1 )
+
+[node name="away2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 608, 40)
+[node name="sprite" parent="away2"]
+self_modulate = Color( 1, 0.929688, 1, 1 )
 
 [node name="ball" parent="." instance=ExtResource( 4 )]
 
@@ -146,3 +146,4 @@ flat = false
 
 [editable path="home1"]
 [editable path="away1"]
+[editable path="away2"]
