@@ -5,6 +5,13 @@ const SCORE_TO_WIN = 10
 var score_left = 0
 var score_right = 0
 
+var arr = homePlayerArray = [];
+homePlayerArray.push(get_node("home1"));
+
+var arr = awayPlayerArray = [];
+awayPlayerArray.push(get_node("away1"));
+awayPlayerArray.push(get_node("away2"));
+
 signal game_finished()
 
 sync func update_score(add_to_left):
@@ -38,7 +45,7 @@ func _ready():
 	if get_tree().is_network_server():		
 		#if in the server, get control of player 2 to the other peeer, this function is tree recursive by default
 		get_node("away1").set_network_master(get_tree().get_network_connected_peers()[0])
-		get_node("away2").set_network_master(get_tree().get_network_connected_peers()[1])
+		#get_node("away2").set_network_master(get_tree().get_network_connected_peers()[1])
 
 	else:
 		#if in the client, give control of player 2 to itself, this function is tree recursive by default
