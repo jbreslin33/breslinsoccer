@@ -5,13 +5,6 @@ const SCORE_TO_WIN = 10
 var score_left = 0
 var score_right = 0
 
-var arr = homePlayerArray = [];
-homePlayerArray.push(get_node("home1"));
-
-var arr = awayPlayerArray = [];
-awayPlayerArray.push(get_node("away1"));
-awayPlayerArray.push(get_node("away2"));
-
 signal game_finished()
 
 sync func update_score(add_to_left):

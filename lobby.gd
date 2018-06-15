@@ -7,10 +7,10 @@ const DEFAULT_PORT = 8910 # some random number, pick your port properly
 # callback from SceneTree
 func _player_connected(id):
 	#someone connected, start the game!
-	var pong = load("res://pong.tscn").instance()
-	pong.connect("game_finished", self, "_end_game", [], CONNECT_DEFERRED) # connect deferred so we can safely erase it from the callback
+	var soccerpitch = load("res://soccerpitch.tscn").instance()
+	soccerpitch.connect("game_finished", self, "_end_game", [], CONNECT_DEFERRED) # connect deferred so we can safely erase it from the callback
 	
-	get_tree().get_root().add_child(pong)
+	get_tree().get_root().add_child(soccerpitch)
 	hide()
 
 func _player_disconnected(id):
@@ -41,9 +41,9 @@ func _server_disconnected():
 ##### Game creation functions ######
 
 func _end_game(with_error=""):
-	if has_node("/root/pong"):
-		#erase pong scene
-		get_node("/root/pong").free() # erase immediately, otherwise network might show errors (this is why we connected deferred above)
+	if has_node("/root/soccerpitch"):
+		#erase soccerpitch scene
+		get_node("/root/soccerpitch").free() # erase immediately, otherwise network might show errors (this is why we connected deferred above)
 		show()
 	
 	get_tree().set_network_peer(null) #remove peer
