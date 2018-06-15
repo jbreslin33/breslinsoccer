@@ -8,6 +8,14 @@ var score_right = 0
 signal game_finished()
 
 sync func update_score(add_to_left):
+
+	var s = Summator.new()
+	s.add(10)
+	s.add(20)
+	s.add(30)
+	print(s.get_total())
+	s.reset()
+
 	if add_to_left:
 		score_left += 1
 		get_node("score_left").set_text(str(score_left))
@@ -33,6 +41,7 @@ func _on_exit_game_pressed():
 	emit_signal("game_finished")	
 
 func _ready():
+
 	# by default, all nodes in server inherit from master
 	# while all nodes in clients inherit from slave
 	if get_tree().is_network_server():		
@@ -47,5 +56,13 @@ func _ready():
 	#let each player know which one is left, too
 	get_node("home1").left = true
 	get_node("away1").left = false
-	get_node("away2").left = false
+	#get_node("away2").left = false
 	print("unique id: ", get_tree().get_network_unique_id())
+
+
+#var s = Summator.new()
+#s.add(10)
+#s.add(20)
+#s.add(30)
+#print(s.get_total())
+#s.reset()
