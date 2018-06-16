@@ -7,6 +7,8 @@ const DEFAULT_PORT = 8910 # some random number, pick your port properly
 # callback from SceneTree
 func _player_connected(id):
 	#someone connected, start the game!
+	print("connect player!!!!!!!!!!!!!!!!!")
+
 	var soccerpitch = load("res://soccerpitch.tscn").instance()
 	soccerpitch.connect("game_finished", self, "_end_game", [], CONNECT_DEFERRED) # connect deferred so we can safely erase it from the callback
 	
