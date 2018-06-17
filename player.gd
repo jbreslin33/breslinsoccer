@@ -17,14 +17,25 @@ slave func set_pos_and_motion(p_pos, p_motion):
 func _hide_you_label():
 	you_hidden = true
 	get_node("you").hide()
+/*
+        velocity = Vector2()
+        if Input.is_action_pressed("ui_right"):
+                velocity.x += 1
+        if Input.is_action_pressed("ui_left"):
+                velocity.x -= 1
+        if Input.is_action_pressed("ui_down"):
+                velocity.y += 1
+        if Input.is_action_pressed("ui_up"):
+                velocity.y -= 1
 
+*/
 func _process(delta):
 	#is the master of the player		
 	if is_network_master():		
 		motion = 0
-		if Input.is_action_pressed("move_up"):
+		if Input.is_action_pressed("ui_up"):
 			motion -= 1
-		elif Input.is_action_pressed("move_down"):
+		elif Input.is_action_pressed("ui_down"):
 			motion += 1
 
 		if not you_hidden and motion != 0:
