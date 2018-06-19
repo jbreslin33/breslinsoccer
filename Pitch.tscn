@@ -3,7 +3,7 @@
 [sub_resource type="CubeMesh" id=1]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
-size = Vector3( 65, 0.5, 105)
+size = Vector3( 65, 0.5, 105 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
@@ -60,7 +60,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[node name="pitch" type="Spatial" index="0"]
+[node name="Pitch" type="Spatial" index="0"]
 
 [node name="MeshInstance" type="MeshInstance" parent="." index="0"]
 
