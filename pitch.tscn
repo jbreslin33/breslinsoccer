@@ -3,7 +3,7 @@
 [sub_resource type="CubeMesh" id=1]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
-size = Vector3( 2, 2, 2 )
+size = Vector3( 65, 0.5, 105)
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
@@ -61,9 +61,6 @@ distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
 [node name="pitch" type="Spatial" index="0"]
-
-transform = Transform( 34.5, 0, 0, 0, 0.5, 0, 0, 0, 52.5, 0, 0, 0 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="MeshInstance" type="MeshInstance" parent="." index="0"]
 
