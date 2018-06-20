@@ -15,6 +15,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.48779, 0 )
 [node name="CameraMan" parent="." index="2" instance=ExtResource( 3 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.033, 40.4483 )
+v_offset = -100.0
+projection = 1
 target = NodePath("../Player")
+enabled = true
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 
