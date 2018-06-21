@@ -5,14 +5,14 @@ func _ready():
 	# Initialization here
 	pass
 
-func Enter(player):
+func _enter(player):
 	
 	pass
 	
-func Execute(player):
+func _execute(player):
 	print("PlayerChaseState: Execute")
 	pass
 	
-func Exit(player):
+func _exit(player):
 	
 	pass

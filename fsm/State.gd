@@ -1,13 +1,13 @@
 extends Node
 
-func Enter():
+func _enter():
 	
 	pass
 	
-func Execute():
+func _execute():
 	
 	pass
 	
-func Exit():
+func _exit():
 	
 	pass

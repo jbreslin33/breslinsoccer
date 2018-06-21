@@ -14,6 +14,6 @@ func setCurrentState(state):
 
 func update():
 	if (mCurrentState):
-		mCurrentState.Execute(mOwner)
+		mCurrentState._execute(mOwner)
 	
 	pass
