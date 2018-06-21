@@ -1,8 +1,8 @@
 extends KinematicBody
 
 #state machine
-var PlayerChaseState = load("res://PlayerChaseState.gd")
-var StateMachine = load("res://StateMachine.gd")
+var PlayerChaseState = load("res://player/PlayerChaseState.gd")
+var StateMachine = load("res://fsm/StateMachine.gd")
 
 var speed = 200
 var direction = Vector3()
