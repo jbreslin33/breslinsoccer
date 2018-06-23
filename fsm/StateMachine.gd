@@ -1,19 +1,45 @@
 extends Node
 
-var mCurrentState = 0
 var mOwner = 0
-func _init(owner):
-	mOwner = owner
+var mCurrentState = 0
+var mPreviousState = 0;
+var mGlobalState = 0;
 
-func setCurrentOwner(owner):
+func _init(owner):
 	mOwner = owner
 
 func setCurrentState(state):
 	mCurrentState = state
-	pass
+
+func setGlobalState(state):
+	mGlobalState = state
+
+func setPreviousState(state):
+	mPreviousState = state
+
+func setOwner(owner):
+	mOwner = owner
 
 func update():
+	if (mGlobalState):
+		mGlobalState._execute(mOwner)
+
 	if (mCurrentState):
 		mCurrentState._execute(mOwner)
-	
-	pass
+		
+func changeState(state):
+	mPreviousState = mCurrentState
+	mCurrentState._exit(mOwner)
+	mCurrentState = state
+	mCurrentState._enter(mOwner)
+
+func isInState(state):
+	if (state == mCurrentState):
+		return true
+	else:
+		return false
+
+func getCurrentState():
+	return mCurrentState
+
+
