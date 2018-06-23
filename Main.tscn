@@ -29,112 +29,106 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.77229, 7.13615 )
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -52.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -50 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -47.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -45 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -42.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -40 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -37.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -35 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -32.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -30 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -27.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -25 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -22.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -20 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -17.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -15 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -12.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -10 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -7.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -5 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, -2.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 0 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 2.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 5 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 7.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 10 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 12.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 15)
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 17.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 20 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 22.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 25 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 27.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 30 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 32.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 35 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 37.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 40)
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 42.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 45 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 47.5 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 50 )
 _sections_unfolded = [ "Transform" ]
-
-[node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
-
-transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 52.5 )
-_sections_unfolded = [ "Transform" ]
-
 
