@@ -1,29 +1,40 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://pitch/Pitch.tscn" type="PackedScene" id=1]
-[ext_resource path="res://player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://camera/CameraTarget.tscn" type="PackedScene" id=3]
-[ext_resource path="res://camera/Camera.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ball/Ball.tscn" type="PackedScene" id=5]
+[ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://camera/CameraTarget.tscn" type="PackedScene" id=2]
+[ext_resource path="res://camera/Camera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ball/Ball.tscn" type="PackedScene" id=4]
+[ext_resource path="res://pitch/PitchLightGreen.tscn" type="PackedScene" id=5]
+[ext_resource path="res://pitch/PitchMediumGreen.tscn" type="PackedScene" id=6]
 
 [node name="Main" type="Spatial" index="0"]
 
-[node name="Pitch" parent="." index="0" instance=ExtResource( 1 )]
+_sections_unfolded = [ "Transform" ]
 
-[node name="Player" parent="." index="1" instance=ExtResource( 2 )]
+[node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.1023, 0 )
 
-[node name="CameraTarget" parent="Player" index="2" instance=ExtResource( 3 )]
+[node name="CameraTarget" parent="Player" index="2" instance=ExtResource( 2 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.41641, 7.72061 )
 
-[node name="Camera" parent="Player/CameraTarget" index="0" instance=ExtResource( 4 )]
+[node name="Camera" parent="Player/CameraTarget" index="0" instance=ExtResource( 3 )]
 
 transform = Transform( 1, 0, 0, 0, 0.858891, 0.512159, 0, -0.512159, 0.858891, 0, 3.75212, 7.2374 )
 
-[node name="Ball" parent="." index="2" instance=ExtResource( 5 )]
+[node name="Ball" parent="." index="1" instance=ExtResource( 4 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.77229, 7.13615 )
+
+[node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 35.0513, 0, 0 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 68, 5.0513, 0, 0 )
+_sections_unfolded = [ "Transform" ]
 
 
