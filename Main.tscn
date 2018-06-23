@@ -29,12 +29,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.77229, 7.13615 )
 
 [node name="PitchLightGreen" parent="." index="2" instance=ExtResource( 5 )]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 35.0513, 0, 0 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 47.5 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="PitchMediumGreen" parent="." index="3" instance=ExtResource( 6 )]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 68, 5.0513, 0, 0 )
+transform = Transform( 68, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, -1, 52.5 )
 _sections_unfolded = [ "Transform" ]
 
 
