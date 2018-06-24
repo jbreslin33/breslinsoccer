@@ -10,7 +10,7 @@ func _enter(player):
 	pass
 	
 func _execute(player):
-	print("PlayerChaseState: Execute")
+	#print("PlayerChaseState: Execute")
 	pass
 	
 func _exit(player):
