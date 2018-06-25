@@ -4,6 +4,8 @@ extends KinematicBody
 var PlayerChaseState = load("res://player/PlayerChaseState.gd")
 var StateMachine = load("res://fsm/StateMachine.gd")
 
+var SteeringBehaviors = load("res://player/SteeringBehaviors.gd")
+
 var speed = 400
 var direction = Vector3()
 var gravity = -9.8
@@ -11,12 +13,17 @@ var velocity = Vector3()
 var mStateMachine = 0
 var mPlayerChaseState = 0
 
+var mSteeringBehaviors = 0
+
 
 func _init():
 	#state machine
 	mStateMachine = StateMachine.new(self)
 	mPlayerChaseState = PlayerChaseState.new()
 	mStateMachine.setCurrentState(mPlayerChaseState)
+	
+
+	mSteeringBehaviors = SteeringBehaviors.new(self)
 	pass
 
 func _ready():
