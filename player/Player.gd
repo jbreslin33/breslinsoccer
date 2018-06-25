@@ -49,10 +49,5 @@ func _physics_process(delta):
 
 	velocity = move_and_slide(velocity, Vector3(0,1,0))
 
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
 	mStateMachine.update()
-	#print("_physics_process)")
-
-
+	mSteeringBehaviors.calculate()

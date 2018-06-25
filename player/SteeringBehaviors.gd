@@ -2,8 +2,9 @@ extends Node
 
 var mPlayer = 0
 var mBall = 0
-var mSteeringForce = 0
-var mTarget = 0
+var mSteeringForce = Vector3(0,0,0) 
+var mTarget = Vector3(0,0,0)
+
 var mInterposeDistance = 0
 var mMultSeparation = 0
 
@@ -22,3 +23,12 @@ func _init(player):
 
 func seek(target):
         mTarget = target
+
+func zeroSteeringForce():
+	mSteeringForce.x = 0;
+	mSteeringForce.y = 0;
+	mSteeringForce.z = 0;
+
+func calculate():
+	zeroSteeringForce()
+
