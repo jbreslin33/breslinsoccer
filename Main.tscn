@@ -1,6 +1,59 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="SpatialMaterial" id=1]
+
+render_priority = 0
+flags_transparent = false
+flags_unshaded = false
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+flags_albedo_tex_force_srgb = false
+flags_do_not_receive_shadows = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 0.0980392, 0.980392, 0, 1 )
+metallic = 0.0
+metallic_specular = 0.5
+metallic_texture_channel = 0
+roughness = 0.0
+roughness_texture_channel = 0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Albedo" ]
+
+[sub_resource type="CubeMesh" id=2]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 flip_faces = false
@@ -9,11 +62,11 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="ConvexPolygonShape" id=5]
+[sub_resource type="ConvexPolygonShape" id=3]
 
 points = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5 )
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=4]
 
 render_priority = 0
 flags_transparent = false
@@ -65,7 +118,7 @@ uv2_triplanar_sharpness = 1.0
 proximity_fade_enable = false
 distance_fade_enable = false
 
-[sub_resource type="SphereMesh" id=7]
+[sub_resource type="SphereMesh" id=5]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 flip_faces = false
@@ -75,11 +128,11 @@ radial_segments = 64
 rings = 32
 is_hemisphere = false
 
-[sub_resource type="SphereShape" id=8]
+[sub_resource type="SphereShape" id=6]
 
 radius = 1.0
 
-[sub_resource type="CubeMesh" id=9]
+[sub_resource type="CubeMesh" id=7]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 flip_faces = false
@@ -88,7 +141,7 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="BoxShape" id=10]
+[sub_resource type="BoxShape" id=8]
 
 extents = Vector3( 1, 1, 1 )
 
@@ -103,7 +156,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="MeshInstance" type="MeshInstance" parent="Pitch/pitch_p005_p005" index="0"]
 transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0 )
 layers = 1
-material_override = null
+material_override = SubResource( 1 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -111,10 +164,10 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 3 )
+mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
-_sections_unfolded = [ "Geometry", "Transform", "mesh" ]
+_sections_unfolded = [ "Geometry", "Transform", "material_override" ]
 
 [node name="StaticBody" type="StaticBody" parent="Pitch/pitch_p005_p005/MeshInstance" index="0"]
 input_ray_pickable = true
@@ -127,11 +180,44 @@ constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Pitch/pitch_p005_p005/MeshInstance/StaticBody" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-shape = SubResource( 5 )
+shape = SubResource( 3 )
 disabled = false
 
-[node name="pitch_p005_p015" type="Spatial" parent="Pitch" index="1"]
+[node name="pitch_p005_p025" type="Spatial" parent="Pitch" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 25 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="MeshInstance" type="MeshInstance" parent="Pitch/pitch_p005_p025" index="0"]
+transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 2 )
+skeleton = NodePath("..")
+material/0 = null
+_sections_unfolded = [ "Geometry", "Transform", "mesh" ]
+
+[node name="StaticBody" type="StaticBody" parent="Pitch/pitch_p005_p025/MeshInstance" index="0"]
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Pitch/pitch_p005_p025/MeshInstance/StaticBody" index="0"]
+shape = SubResource( 3 )
+disabled = false
+
+[node name="pitch_p005_p015" type="Spatial" parent="Pitch" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 15 )
 _sections_unfolded = [ "Transform" ]
 
@@ -146,7 +232,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 3 )
+mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Geometry", "Transform", "mesh" ]
@@ -162,8 +248,7 @@ constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Pitch/pitch_p005_p015/MeshInstance/StaticBody" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-shape = SubResource( 5 )
+shape = SubResource( 3 )
 disabled = false
 
 [node name="Camera" type="Camera" parent="." index="1"]
@@ -199,7 +284,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="MeshInstance" type="MeshInstance" parent="Ball" index="0"]
 transform = Transform( 0.22, 0, 0, 0, 0.22, 0, 0, 0, 0.22, 0, 0, 0 )
 layers = 1
-material_override = SubResource( 6 )
+material_override = SubResource( 4 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -207,13 +292,13 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 7 )
+mesh = SubResource( 5 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Geometry", "Material", "Transform", "mesh" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="Ball" index="1"]
-shape = SubResource( 8 )
+shape = SubResource( 6 )
 disabled = false
 
 [node name="Player" type="KinematicBody" parent="." index="3"]
@@ -241,12 +326,12 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 9 )
+mesh = SubResource( 7 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Geometry" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="Player" index="1"]
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 disabled = false
 
