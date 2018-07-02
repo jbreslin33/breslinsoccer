@@ -29,3 +29,7 @@ func _physics_process(delta):
 	velocity.z = direction.z
 	
 	velocity = move_and_slide(velocity, Vector3(0,1,0))
+	
+func getVelocity():
+	return velocity
+	

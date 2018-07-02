@@ -8,9 +8,13 @@ var direction = Vector3()
 var gravity = -9.8
 var velocity = Vector3()
 
+var mBall = 0
+
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here.
+	
+	
 	pass
 
 #func _process(delta):
@@ -38,3 +42,10 @@ func _physics_process(delta):
 	velocity.z = direction.z
 	
 	velocity = move_and_slide(velocity, Vector3(0,1,0))
+	
+func setBall(b):
+	mBall = b
+	print("call setBall")
+	var v = mBall.getVelocity()
+	print(v.x)
+	

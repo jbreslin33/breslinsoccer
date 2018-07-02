@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://ball/Ball.gd" type="Script" id=1]
-[ext_resource path="res://player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://ball/Ball.gd" type="Script" id=2]
+[ext_resource path="res://player/Player.gd" type="Script" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 
@@ -202,6 +203,7 @@ subdivide_depth = 0
 extents = Vector3( 1, 1, 1 )
 
 [node name="Main" type="Node" index="0"]
+script = ExtResource( 1 )
 
 [node name="Pitch" type="Node" parent="." index="0"]
 editor/display_folded = true
@@ -337,7 +339,7 @@ axis_lock_angular_x = false
 axis_lock_angular_y = false
 axis_lock_angular_z = false
 collision/safe_margin = 0.001
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="MeshInstance" type="MeshInstance" parent="Ball" index="0"]
@@ -373,7 +375,7 @@ axis_lock_angular_x = false
 axis_lock_angular_y = false
 axis_lock_angular_z = false
 collision/safe_margin = 0.001
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="MeshInstance" type="MeshInstance" parent="Player" index="0"]
