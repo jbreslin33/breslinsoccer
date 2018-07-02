@@ -201,6 +201,7 @@ extents = Vector3( 1, 1, 1 )
 [node name="Main" type="Node" index="0"]
 
 [node name="Pitch" type="Node" parent="." index="0"]
+editor/display_folded = true
 
 [node name="pitch_p005_p005" type="Spatial" parent="Pitch" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5 )
@@ -305,7 +306,7 @@ shape = SubResource( 3 )
 disabled = false
 
 [node name="Camera" type="Camera" parent="." index="1"]
-transform = Transform( -4.37114e-08, -0.642788, 0.766044, 0, 0.766044, 0.642788, -1, 2.80971e-08, -3.34849e-08, 15.624, 9.50894, 0 )
+transform = Transform( -0.997598, -0.0445252, 0.053063, 0, 0.766044, 0.642788, -0.0692689, 0.641244, -0.764204, 5, 15.7035, -10 )
 keep_aspect = 1
 cull_mask = 1048575
 environment = null
@@ -321,6 +322,7 @@ far = 100.0
 _sections_unfolded = [ "Transform" ]
 
 [node name="Ball" type="KinematicBody" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75079, 3.86482, 3.44124 )
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -355,7 +357,7 @@ shape = SubResource( 7 )
 disabled = false
 
 [node name="Player" type="KinematicBody" parent="." index="3"]
-transform = Transform( 0.26, 0, 0, 0, 0.25, 0, 0, 0, 0.5, 0, 0, -2 )
+transform = Transform( 0.26, 0, 0, 0, 0.25, 0, 0, 0, 0.5, 4.61244, 6.52481, 22.3122 )
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
