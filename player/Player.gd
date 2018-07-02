@@ -45,7 +45,8 @@ func _physics_process(delta):
 	
 func setBall(b):
 	mBall = b
-	print("call setBall")
-	var v = mBall.getVelocity()
-	print(v.x)
 	
+func getBall():
+	return mBall
+	
+		
