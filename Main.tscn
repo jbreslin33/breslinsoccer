@@ -66,7 +66,7 @@ subdivide_depth = 0
 
 points = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5 )
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=4]
 
 render_priority = 0
 flags_transparent = false
@@ -119,7 +119,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=5]
 
 render_priority = 0
 flags_transparent = false
@@ -171,7 +171,7 @@ uv2_triplanar_sharpness = 1.0
 proximity_fade_enable = false
 distance_fade_enable = false
 
-[sub_resource type="SphereMesh" id=5]
+[sub_resource type="SphereMesh" id=6]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 flip_faces = false
@@ -181,11 +181,11 @@ radial_segments = 64
 rings = 32
 is_hemisphere = false
 
-[sub_resource type="SphereShape" id=6]
+[sub_resource type="SphereShape" id=7]
 
 radius = 1.0
 
-[sub_resource type="CubeMesh" id=7]
+[sub_resource type="CubeMesh" id=8]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 flip_faces = false
@@ -194,7 +194,7 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="BoxShape" id=8]
+[sub_resource type="BoxShape" id=9]
 
 extents = Vector3( 1, 1, 1 )
 
@@ -243,7 +243,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="MeshInstance" type="MeshInstance" parent="Pitch/pitch_p005_p025" index="0"]
 transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0 )
 layers = 1
-material_override = null
+material_override = SubResource( 1 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -277,7 +277,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="MeshInstance" type="MeshInstance" parent="Pitch/pitch_p005_p015" index="0"]
 transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0 )
 layers = 1
-material_override = SubResource( 9 )
+material_override = SubResource( 4 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -337,7 +337,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="MeshInstance" type="MeshInstance" parent="Ball" index="0"]
 transform = Transform( 0.22, 0, 0, 0, 0.22, 0, 0, 0, 0.22, 0, 0, 0 )
 layers = 1
-material_override = SubResource( 4 )
+material_override = SubResource( 5 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -345,13 +345,13 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Geometry", "Material", "Transform", "mesh" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="Ball" index="1"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 disabled = false
 
 [node name="Player" type="KinematicBody" parent="." index="3"]
@@ -379,12 +379,12 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 7 )
+mesh = SubResource( 8 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Geometry" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="Player" index="1"]
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 disabled = false
 
