@@ -10,6 +10,7 @@ func _enter(player):
 	player.isBallWithingKickingRange()
 	
 func _execute(player):
+	player.isBallWithingKickingRange()
 	pass
 	
 func _exit(player):
